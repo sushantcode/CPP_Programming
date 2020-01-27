@@ -1,4 +1,4 @@
-/* This program simply print out "Hello [My name]!" on console output screen */
+/* This program simply print out "Hello [My name]!" on console output screen. */
 
 #include <iostream>
 
