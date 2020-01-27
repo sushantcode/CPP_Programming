@@ -9,7 +9,7 @@ int main()
 {
 	string nam;
 	cout << "Enter your name: ";
-	getline(cin, name);
+	getline(cin, nam);
 	cout << "Hello, " << nam << "!" << endl;
 
 	return 0;
