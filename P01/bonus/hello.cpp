@@ -1,4 +1,4 @@
-/* This program simply prints out "Hello [My name]!" on console output screen. */
+/* This program will ask user's name and prints out "Hello [User's name]!" on console output screen. */
 
 #include <iostream>
 #include <string>
