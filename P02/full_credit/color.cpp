@@ -16,14 +16,18 @@ class Color{
 		std::string to_string(){
 			std::string string_out;
 			string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
-			return 
+			return string_out;
 		}
 		
 		std::string colorize(std::string text){
-			
+				return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m" << text << "\033[0m";
 		}
 		
 	private:
-		int _red, _green, _blue;
-		
+		int _red, _green, _blue;	
+}
+
+int main(){
+	Color red{255,0,0};
+	std::cout << red.colorize("Red") << std::endl;
 }
