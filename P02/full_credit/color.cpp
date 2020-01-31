@@ -12,9 +12,13 @@ class Color{
 		if(blue > 255 || blue < 0) throw std::runtime_error{"Invalid blue component!"};
 		}
 		~Color();
+		
 		std::string to_string(){
-			
+			std::string string_out;
+			string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
+			return 
 		}
+		
 		std::string colorize(std::string text){
 			
 		}
