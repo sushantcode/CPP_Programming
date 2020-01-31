@@ -1,33 +1,27 @@
-#include <iostream>
-#include <string>
+#include "color.h"
 
 //using namespace std;
 
-class Color{
-	public:
-		Color(int red, int green, int blue):
-		_red{red}, _green{green}, _blue{blue} {
-		if(red > 255 || red < 0) throw std::runtime_error{"Invalid red component!"};
-		if(green > 255 || green < 0) throw std::runtime_error{"Invalid green component!"};
-		if(blue > 255 || blue < 0) throw std::runtime_error{"Invalid blue component!"};
-		}
-		~Color();
+Color::Color(int red, int green, int blue)
+	: _red{red}, _green{green}, _blue{blue} {
+	if(_red > 255 || _red < 0) throw std::runtime_error{"Invalid red component!"};
+	if(_green > 255 || _green < 0) throw std::runtime_error{"Invalid green component!"};
+	if(_blue > 255 || _blue < 0) throw std::runtime_error{"Invalid blue component!"};
+}
+
+Color::~Color(){ }
+
+std::string Color::to_string(){
+	std::string string_out;
+	string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
+	return string_out;
+}
 		
-		std::string to_string(){
-			std::string string_out;
-			string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
-			return string_out;
-		}
-		
-		std::string colorize(std::string text){
-				return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m" << text << "\033[0m";
-		}
-		
-	private:
-		int _red, _green, _blue;	
+std::string Color::colorize(std::string text){
+	return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m" + text + "\033[0m";
 }
 
 int main(){
-	Color red{255,0,0};
+	Color red{255,0,-1};
 	std::cout << red.colorize("Red") << std::endl;
 }
