@@ -11,10 +11,27 @@ Color::~Color(){ }
 
 std::string Color::to_string(){
 	std::string string_out;
-	string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ")";
+	string_out = "(" + std::to_string(_red) + "," + std::to_string(_green) + "," + std::to_string(_blue) + ":" + std::to_string(Color::magnitude()) + ")";
 	return string_out;
 }
 		
 std::string Color::colorize(std::string text){
 	return "\033[38;2;"+std::to_string(_red)+";"+std::to_string(_green)+";"+std::to_string(_blue)+"m" + text + "\033[0m";
+}
+
+int Color::magnitude(){
+	return (0.21*_red + 0.72*_green + 0.07*_blue);
+}
+
+int Color::compare(const& rhs){
+	int this = Color::magnitude();
+	if(this > rhs){
+		return 1;
+	}
+	elseif(this == rhs){
+	       return 0;
+	}
+	else{
+	       return -1;
+	}
 }
