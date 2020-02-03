@@ -23,12 +23,13 @@ int Color::magnitude(){
 	return (0.21*_red + 0.72*_green + 0.07*_blue);
 }
 
-int Color::compare(const Color* rhs){
-	int this = Color::magnitude();
-	if(this > *rhs){
+int Color::compare(const Color *rhs){
+	int lhs = Color::magnitude();
+	int thisObj = (0.21*rhs->_red + 0.72*rhs->_green + 0.07*rhs->_blue);
+	if(lhs > thisObj){
 		return 1;
 	}
-	else if(this == *rhs){
+	else if(lhs == thisObj){
 	       return 0;
 	}
 	else{
