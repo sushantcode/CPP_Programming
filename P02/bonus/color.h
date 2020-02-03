@@ -10,6 +10,8 @@ class Color{
 		~Color();
 		std::string to_string();
 		std::string colorize(std::string text);
+		int magnitude();
+		int compare(const& rhs);
 	private:
 		int _red, _green, _blue;
 };
