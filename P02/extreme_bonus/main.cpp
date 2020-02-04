@@ -1,5 +1,5 @@
 /* Sushant Gupta 1001520302 */
-/* This program prints given text and command in the representative color including magnitude in color code. */
+/* This program sorts the given sets of color code on the basis of their magnitude (darkness/brightness). */
 
 #include "color.h"
 
