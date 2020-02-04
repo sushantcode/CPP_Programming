@@ -11,6 +11,8 @@ int main(){
 	std::cin >> user_red >> user_green >> user_blue;
 	Color user_input{user_red,user_green,user_blue};
 	std::cout << user_input.colorize(user_input.to_string()) << std::endl;
-	Color rhs{156,48,215};
-	std::cout << user_input.compare(&rhs) << std::endl;
+	//Color rhs{156,48,215};
+	//std::cout << user_input.compare(&rhs) << std::endl;
+	std::vector <Color> colors{{156,48,215}, {214,155,126}, {78,148,84}};
+	std::cout << colors.begin() << std::endl;
 }
