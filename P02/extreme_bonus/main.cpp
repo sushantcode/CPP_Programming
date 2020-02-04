@@ -3,6 +3,10 @@
 
 #include "color.h"
 
+bool less_than(Color lhs, Color rhs){
+	return lhs.compare(&rhs);
+}
+
 int main(){
 	Color red{255,0,0}, green{0,128,0}, purple{95,0,135};
 	std::cout << red.colorize("Red") << "\n" << green.colorize("Green") << "\n" << purple.colorize("Purple") << std::endl;
@@ -14,5 +18,6 @@ int main(){
 	//Color rhs{156,48,215};
 	//std::cout << user_input.compare(&rhs) << std::endl;
 	std::vector <Color> colors{{156,48,215}, {214,155,126}, {78,148,84}};
-	std::cout << colors.begin() << std::endl;
+	std::sort (colors.begin(), colors.end(), less_than);
+	
 }
