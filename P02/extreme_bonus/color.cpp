@@ -25,8 +25,8 @@ int Color::magnitude(){
 
 int Color::compare(const Color *rhs){
 	int thisObj = Color::magnitude();
-	int rhsObj = (0.21*rhs->_red + 0.72*rhs->_green + 0.07*rhs->_blue);
-	if(thisObj > rhsObj){
+	int rhsObj = (0.21*(rhs->_red) + 0.72*(rhs->_green) + 0.07*(rhs->_blue));
+	if(thisObj < rhsObj){
 		return 1;
 	}
 	else if(thisObj == rhsObj){
