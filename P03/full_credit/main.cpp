@@ -10,5 +10,5 @@ int main(){
 	std::cout << "Enter integers for red, green and blue components: ";
 	std::cin >> user_red >> user_green >> user_blue;
 	Color user_input{user_red,user_green,user_blue};*/
-	std::cout << red << "Red" << green << "Green" << purple << "Purple" std::endl;
+	std::cout << red << "Red" << green << "Green" << purple << "Purple" << std::endl;
 }
