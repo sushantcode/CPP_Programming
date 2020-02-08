@@ -4,11 +4,11 @@
 #include "color.h"
 
 int main(){
-	Color red{255,0,0};
+	Color red{255,0,0}, green{0,128,0}, purple{95,0,135};
 	/*std::cout << red.colorize("Red ") << green.colorize("Green ") << purple.colorize("Purple") << std::endl;
 	int user_red, user_green, user_blue;
 	std::cout << "Enter integers for red, green and blue components: ";
 	std::cin >> user_red >> user_green >> user_blue;
 	Color user_input{user_red,user_green,user_blue};*/
-	std::cout << red << "Red" << "\033[0m" << std::endl;
+	std::cout << red << "Red" << green << "Green" << purple << "Purple" std::endl;
 }
