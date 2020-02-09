@@ -19,7 +19,7 @@ std::string Color::to_string(){
 }
 
 int Color::magnitude(){
-	return (0.21*_red + 0.72*_green + 0.07*_blue);
+	return (0.21*(double)_red + 0.72*(double)_green + 0.07*(double)_blue);
 }
 		
 std::ostream& operator<<(std::ostream& ost, Color& color){
@@ -32,28 +32,32 @@ std::ostream& operator<<(std::ostream& ost, Color& color){
 	return ost;
 }
 
-std::istream& operator>>(std::istream& ist, Color& color){
-	std::string user_input;
-	char c;
-	ist >> user_input;
-	std::stringstream(user_input) >> c >> color._red >> c >> color._green >> c >> color._blue >> c;
-	if(color._red > 255 || color._red < 0) throw std::runtime_error{"Invalid red component!"};
-	if(color._green > 255 || color._green < 0) throw std::runtime_error{"Invalid green component!"};
-	if(color._blue > 255 || color._blue < 0) throw std::runtime_error{"Invalid blue component!"};
-		color._reset = false;
-		return ist;
+bool Color::operator<(Color& rhs){
+	return (Color::magnitude() < rhs.magnitude());
+}
+bool Color::operator<=(Color& rhs){
+	return (Color::magnitude() <= rhs.magnitude());
+}
+bool Color::operator==(Color& rhs){
+	return (Color::magnitude() == rhs.magnitude());
+}
+bool Color::operator!=(Color& rhs){
+	return (Color::magnitude() != rhs.magnitude());
+}
+bool Color::operator>=(Color& rhs){
+	return (Color::magnitude() >= rhs.magnitude());
+}
+bool Color::operator>(Color& rhs){
+	return (Color::magnitude() > rhs.magnitude());
 }
 
-int Color::compare(const Color *rhs){
+bool Color::compare(const Color *rhs){
 	int thisObj = Color::magnitude();
-	int rhsObj = (0.21*(rhs->_red) + 0.72*(rhs->_green) + 0.07*(rhs->_blue));
-	if(thisObj < rhsObj){
-		return 1;
-	}
-	else if(thisObj == rhsObj){
-	       return 0;
+	int rhsObj = (0.21*(double)(rhs->_red) + 0.72*(double)(rhs->_green) + 0.07*(double)(rhs->_blue));
+	if(thisObj < rhsObj || thisObj == rhsObj){
+		return true;
 	}
 	else{
-	       return -1;
+	       return false;
 	}
 }
