@@ -1,7 +1,6 @@
 #include "color.h"
 
-
-Color::Color(){
+Color::Color(){ 
 	_reset = true;
 }
 
@@ -30,9 +29,10 @@ std::ostream& operator<<(std::ostream& ost, Color& color){
 }
 
 std::istream& operator>>(std::istream& ist, Color& color){
-	ist >> color._red;
-	ist >> color._green;
-	ist >> color._blue;
+	std::string user_input;
+	char c;
+	ist >> user_input;
+	std::stringstream(user_input) >> c >> color._red >> c >> color._green >> c >> color._blue >> c;
 	if(color._red > 255 || color._red < 0) throw std::runtime_error{"Invalid red component!"};
 	if(color._green > 255 || color._green < 0) throw std::runtime_error{"Invalid green component!"};
 	if(color._blue > 255 || color._blue < 0) throw std::runtime_error{"Invalid blue component!"};
