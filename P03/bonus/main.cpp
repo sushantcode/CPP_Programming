@@ -1,5 +1,5 @@
 /* Sushant Gupta 1001520302 */
-/* This program prints given text and command in the representative color. */
+/* This program prints and sorts several random RGB codes in the representative color. */
 
 #include "color.h"
 
@@ -21,7 +21,7 @@ int main(){
 	}
 	std::sort (colors.begin(), colors.end(), less_than);
 	for(std::vector<Color>::iterator curr_color = colors.begin(); curr_color != colors.end(); ++curr_color){
-		std::cout << *curr_color << curr_color->to_string() << std::endl;
+		std::cout << *curr_color << curr_color->to_string() << " "<< reset << curr_color->magnitude() << std::endl;
 	}
 	return 0;
 		
