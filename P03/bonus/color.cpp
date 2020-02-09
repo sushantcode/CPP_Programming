@@ -32,21 +32,26 @@ std::ostream& operator<<(std::ostream& ost, Color& color){
 	return ost;
 }
 
+bool Color::operator>=(Color& rhs){
+	return compare(&rhs);
+}
+
 bool Color::operator<(Color& rhs){
 	return (Color::magnitude() < rhs.magnitude());
 }
+
 bool Color::operator<=(Color& rhs){
-	return (Color::magnitude() <= rhs.magnitude());
+	return ((Color::magnitude() < rhs.magnitude()) || (Color::magnitude() <= rhs.magnitude()));
 }
+
 bool Color::operator==(Color& rhs){
 	return (Color::magnitude() == rhs.magnitude());
 }
+
 bool Color::operator!=(Color& rhs){
 	return (Color::magnitude() != rhs.magnitude());
 }
-bool Color::operator>=(Color& rhs){
-	return (Color::magnitude() >= rhs.magnitude());
-}
+
 bool Color::operator>(Color& rhs){
 	return (Color::magnitude() > rhs.magnitude());
 }
@@ -54,7 +59,7 @@ bool Color::operator>(Color& rhs){
 bool Color::compare(const Color *rhs){
 	int thisObj = Color::magnitude();
 	int rhsObj = (0.21*(double)(rhs->_red) + 0.72*(double)(rhs->_green) + 0.07*(double)(rhs->_blue));
-	if(thisObj < rhsObj || thisObj == rhsObj){
+	if(thisObj > rhsObj || thisObj == rhsObj){
 		return true;
 	}
 	else{

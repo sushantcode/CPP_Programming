@@ -3,15 +3,6 @@
 
 #include "color.h"
 
-bool less_than(Color lhs, Color rhs){
-	if(lhs >= rhs){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
 int main(){
 	Color reset;
 	std::vector <Color> colors;
@@ -19,11 +10,9 @@ int main(){
 	for(int i = 0; i < 64; i++){
 		colors.push_back({std::rand()%256, std::rand()%256, std::rand()%256});
 	}
-	std::sort (colors.begin(), colors.end(), less_than);
+	std::sort (colors.begin(), colors.end());
 	for(std::vector<Color>::iterator curr_color = colors.begin(); curr_color != colors.end(); ++curr_color){
-		std::cout << *curr_color << curr_color->to_string() << " "<< reset << curr_color->magnitude() << std::endl;
+		std::cout << *curr_color << curr_color->to_string() << " " << reset << curr_color->magnitude() << std::endl;
 	}
 	return 0;
-		
-	//std::cout << user_input << user_input.to_string() << std::endl;
 }
