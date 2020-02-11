@@ -8,7 +8,7 @@ int main(){
 	Color red{255,0,0}, green{0,128,0}, purple{95,0,135};
 	std::cout << red << "Red" << "\n" << green << "Green" << "\n" << purple << "Purple" << "\n" << reset << std::endl;
 	Color user_input;
-	std::cout << "Enter integers for red, green and blue components: ";
+	std::cout << "Enter your color as '(Red, Green, Blue)': ";
 	std::cin >> user_input;
 	std::cout << user_input << user_input.to_string() << std::endl;
 }
