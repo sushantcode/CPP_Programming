@@ -4,13 +4,17 @@
 #include <iostream>
 #include <string>
 
-enum class{PENNY,NICKEL,DIME,QUARTER};
+typedef int Year
+enum class Coin_size{PENNY,NICKEL,DIME,QUARTER};
 
+class Logger{
+	public:
+		LOG(std::string msg);
+}
 
 class Coin{
 	public:
-		
-		Coin(Size size, Year year);
+		Coin(Coin_size size, Year year);
 		Coin(const Coin& rhs);
 		Coin& operator=(const Coin& rhs);
 		~Coin();
