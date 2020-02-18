@@ -54,3 +54,11 @@ std::ostream& operator<<(std::ostream& ost, Coin& coin){
 	ost << coin._year << " " << coin._size << "\n" << *(coin._notes);
 	return ost;
 }
+
+std::istream& operator>>(std::istream& ist, Coin_size& coin){
+	
+}
+
+std::istream& operator>>(std::istream& ist, Coin& coin){
+	
+}

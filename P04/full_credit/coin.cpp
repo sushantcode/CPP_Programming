@@ -32,9 +32,9 @@ void Coin::add_note(std::string s){
 	}
 }
 
-std::ostream& operator<<(std::ostream& ost,const Coin_size &coin)
+std::ostream& operator<<(std::ostream& ost,const Coin_size& size)
 {
-	switch(coin)
+	switch(size)
 	{
 		case Coin_size::PENNY:
 			return ost << "penny";
