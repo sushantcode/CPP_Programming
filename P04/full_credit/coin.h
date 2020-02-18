@@ -3,14 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <ostream>
+#include "logger.h"
 
-typedef int Year
-enum class Coin_size{PENNY,NICKEL,DIME,QUARTER};
 
-class Logger{
-	public:
-		LOG(std::string msg);
-}
+typedef int Year;
+
+enum class Coin_size{PENNY, NICKEL, DIME, QUARTER};
 
 class Coin{
 	public:
@@ -18,12 +17,12 @@ class Coin{
 		Coin(const Coin& rhs);
 		Coin& operator=(const Coin& rhs);
 		~Coin();
-		add-note(std::string s);
+		void add_note(std::string s);
 		friend std::ostream& operator<<(std::ostream& ost, Coin& coin);
     		friend std::istream& operator>>(std::istream& ist, Coin& coin);
 	private:
 		Coin_size _size;
-		Year _yera;
+		Year _year;
 		std::string* _notes;
 };
 #endif
