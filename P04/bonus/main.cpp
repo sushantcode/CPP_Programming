@@ -8,6 +8,7 @@ int main(){
 		std::cout << "\n\n ================================== \n   CSE1325 COINS \n ================================== \n A)dd a coin \n L)ist all coins \n D)elete a coin \n\n Q)uit \n\n ";
 		std::cout << coins.size() << " coins >> ";
 		std::cin >> res;
+		try{		
 		switch(res){
 			case 'A':
 				std::cout << "\n Coin (year size \\n notes): " << std::endl;
@@ -34,6 +35,10 @@ int main(){
 			default:
 				std::cout << "Invalid command input! Try again.";
 				break;
+		}
+		}
+		catch(runtime_error e){
+			std::cout << "Runtime error: " << e.what();
 		}
 	}
 	return 0;
