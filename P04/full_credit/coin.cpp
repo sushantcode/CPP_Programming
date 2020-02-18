@@ -14,12 +14,13 @@ Coin& Coin::operator=(const Coin& rhs){
 	_size = rhs._size; 
 	_year = rhs._year;
 	_notes = new std::string{*(rhs._notes)};
-	LOG("Coin::operator=")
+	LOG("Coin::operator=");
 	return *this;
 }
 
 Coin::~Coin(){
 	delete _notes;
+	LOG("Coin::~Coin");
 }
 
 void Coin::add_note(std::string s){
