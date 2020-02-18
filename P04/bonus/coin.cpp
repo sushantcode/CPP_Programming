@@ -50,15 +50,15 @@ std::ostream& operator<<(std::ostream& ost,const Coin_size &coin)
 	return ost;
 }
 
-std::ostream& operator<<(std::ostream& ost, Coin& coin){
+std::ostream& operator<<(std::ostream& ost, const Coin& coin){
 	ost << coin._year << " " << coin._size << "\n" << *(coin._notes);
 	return ost;
 }
 
-std::istream& operator>>(std::istream& ist, Coin_size& coin){
-	
-}
-
-std::istream& operator>>(std::istream& ist, Coin& coin){
-	
+std::istream& operator>>(std::istream& ist, const Coin& coin, const Coin_size& size){
+	std::string user_input;
+	char c;
+	ist >> user_input;
+	std::stringstream(user_input) >> coin._year >> c >> coin._size >> c >> *(coin._notes);
+		return ist;
 }

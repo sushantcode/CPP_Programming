@@ -50,7 +50,7 @@ std::ostream& operator<<(std::ostream& ost,const Coin_size& size)
 	return ost;
 }
 
-std::ostream& operator<<(std::ostream& ost, Coin& coin){
+std::ostream& operator<<(std::ostream& ost, const Coin& coin){
 	ost << coin._year << " " << coin._size << "\n" << *(coin._notes);
 	return ost;
 }
