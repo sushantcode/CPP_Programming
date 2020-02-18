@@ -21,7 +21,7 @@ class Coin{
 		void add_note(std::string s);
 		friend std::ostream& operator<<(std::ostream& ost, const Coin_size& size);
 		friend std::ostream& operator<<(std::ostream& ost, const Coin& coin);
-    		friend std::istream& operator>>(std::istream& ist, const Coin& coin, Coin_size& size);
+    		friend std::istream& operator>>(std::istream& ist, const Coin& coin);
 	private:
 		Coin_size _size;
 		Year _year;

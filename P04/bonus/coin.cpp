@@ -55,7 +55,7 @@ std::ostream& operator<<(std::ostream& ost, const Coin& coin){
 	return ost;
 }
 
-std::istream& operator>>(std::istream& ist, const Coin& coin, const Coin_size& size){
+std::istream& operator>>(std::istream& ist, const Coin& coin){
 	std::string user_input;
 	char c;
 	ist >> user_input;
