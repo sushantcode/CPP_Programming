@@ -37,13 +37,15 @@ std::ostream& operator<<(std::ostream& ost,const Coin_size &coin)
 	switch(coin)
 	{
 		case Coin_size::PENNY:
-			return ost << "Penny";
+			return ost << "penny";
 		case Coin_size::NICKEL:
-			return ost << "Nickel";
+			return ost << "nickel";
 		case Coin_size::DIME:
-			return ost << "Dime";
+			return ost << "dime";
 		case Coin_size::QUARTER:
-			return ost << "Quarter";
+			return ost << "quarter";
+		default:
+			throw std::runtime_error{"Coin value not available yet!"};
 	}
 	return ost;
 }
