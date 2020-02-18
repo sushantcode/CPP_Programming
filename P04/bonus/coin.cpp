@@ -55,10 +55,37 @@ std::ostream& operator<<(std::ostream& ost, const Coin& coin){
 	return ost;
 }
 
-std::istream& operator>>(std::istream& ist, const Coin& coin){
+std::istream& operator>>(std::istream& ist, Coin_size& size){
 	std::string user_input;
 	char c;
+	int year;
+	std::string c_size;
+	std::string notes;
+	ist >> user_input;	
+	std::stringstream(user_input) >> year >> c >> c_size >> c >> notes;
+	switch(c_size){
+		case "penny":
+			return ist >> Coin_size::PENNY;
+		case "nickel":
+			return ist >> Coin_size::NICKEL;
+		case "dime":
+			return ist >>Coin_size::DIME;
+		case "quarter":
+			return ist >> Coin_size::QUARTER;
+		default:
+			std::cerr << "Inavlid input of coin size!";
+			break;
+	}
+	return ist;
+}
+
+std::istream& operator>>(std::istream& ist, Coin& coin){
+	std::string user_input;
+	char c;
+	int year;
+	std::string c_size;
 	ist >> user_input;
-	std::stringstream(user_input) >> coin._year >> c >> coin._size >> c >> *(coin._notes);
-		return ist;
+	std::stringstream(user_input) >> year >> c >> c_size >> c >> *(coin._notes);
+	coin._year = year;;
+	return ist;
 }

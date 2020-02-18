@@ -5,7 +5,8 @@
 #include <string>
 #include <ostream>
 #include "logger.h"
-#include <stringstream>
+#include <sstream>
+#include <vector>
 
 
 typedef int Year;
@@ -21,7 +22,8 @@ class Coin{
 		void add_note(std::string s);
 		friend std::ostream& operator<<(std::ostream& ost, const Coin_size& size);
 		friend std::ostream& operator<<(std::ostream& ost, const Coin& coin);
-    		friend std::istream& operator>>(std::istream& ist, const Coin& coin);
+    		friend std::istream& operator>>(std::istream& ist, Coin& coin);
+		friend std::istream& operator>>(std::istream& ist, Coin_size& size);
 	private:
 		Coin_size _size;
 		Year _year;
