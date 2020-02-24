@@ -7,7 +7,7 @@ int main(){
 	Taxed snicker{"Snicker", 1.99}, pen{"Pen", 2.29}, icecream{"Ice Cream", 3.99};
 	Taxed::set_tax_rate(0.0825);
 	Taxfree milk{"Milk", 2.99}, water{"Water", 3.89}, bread{"Bread", 2.49};
-	std::vector <Product> cart
+	std::vector <Product> cart;
 	const std::string menu = R"(
 ============================================
     Welcome to the Our Store
