@@ -24,6 +24,7 @@ int main(){
 
 	int quantity = 1;
 	int index;
+	std::cout << menu << std::endl;
 	std::cout << "\nEnter quantity (0 to exit) and product index: ";
 	std::cin >> quantity >> index;
 	while(quantity != 0){
