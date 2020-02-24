@@ -18,14 +18,13 @@ int main(){
 2) Ice Cream ($3.99)
 3) Milk ($2.99)
 4) Water ($3.89)
-5) Bread ($2.49)
-	
+5) Bread ($2.49)	
 )";
 
 	int quantity = 1;
 	int index;
 	std::cout << menu << std::endl;
-	std::cout << "\nEnter quantity (0 to exit) and product index: ";
+	std::cout << "Enter quantity (0 to exit) and product index: ";
 	std::cin >> quantity >> index;
 	while(quantity != 0){
 		std::cout << menu << std::endl;
@@ -102,6 +101,8 @@ int main(){
 		}
 		std::cout << "Current Order\n-------------------------------" << std::endl;
 		double total_price = 0;
+		std::cout << std::fixed;
+		std::cout << std::setprecision(2);
 		for (int i = 0; i < cartTax.size(); i++){
 			std::cout << cartTax[i] << std::endl;
 			total_price += cartTax[i].price();
@@ -110,7 +111,7 @@ int main(){
 			std::cout << cartTaxFree[j] << std::endl;
 			total_price += cartTaxFree[j].price();
 		}
-		std::cout << "Total price: $" << total_price << std::endl;
+		std::cout << "\nTotal price: $" << total_price << std::endl;
 		std::cout << "\nEnter quantity (0 to exit) and product index: ";
 		std::cin >> quantity >> index;
 	}

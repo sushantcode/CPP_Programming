@@ -15,10 +15,10 @@ double const Product::price(){ }
 
 std::ostream& operator<<(std::ostream& ost, const Product& product) {
 	if (product._quantity == 0){
-		ost << product._name + " ($" + std::to_string(product._cost) + ")";
+		ost << product._name + " ($" << std::fixed << std::setprecision(2) << product._cost << ")";
  	}
  	else {
- 		ost << product._name + " (" + std::to_string(product._quantity)+ " @ $" +  std::to_string(product._cost) + ")";
+ 		ost << product._name + " (" << product._quantity << " @ $" << std::fixed << std::setprecision(2) << product._cost << ")";
  	}
  	return ost;
 }
