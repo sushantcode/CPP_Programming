@@ -1,12 +1,10 @@
 #include "taxfree.h"
 
 Taxfree::Taxfree(std::string name, double cost)
-	: Product { }
+	: Product(name, cost) { }
 	
-virtual Taxfree::~Taxfree()
+Taxfree::~Taxfree() { }
 
-override double const Taxfree::price(){
-	Product::price(){
+double const Taxfree::price(){
 		return _quantity*_cost;
-	}
 }

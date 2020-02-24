@@ -1,19 +1,16 @@
 #include "taxed.h"
 
-#define _tax 0.0825
+double Taxed::_tax = 0;
 
 Taxed::Taxed(std::string name, double cost)
-	: Product, _tax{0} { }
+	: Product(name, cost){ }
 
-virtual Taxed::~Taxed(){ }
+Taxed::~Taxed(){ }
 
-static double Taxed::set_tax_rate(double sales_tax){
+void Taxed::set_tax_rate(double sales_tax){
 	_tax = sales_tax;
-	return _tax;
 }
 
-override double const Taxed::price(){
-	Product::price(){
-		return _quantity*_cost*(1+_tax);
-	}
+double const Taxed::price(){
+	return (_quantity * _cost) + (_quantity * _cost * _tax);
 }

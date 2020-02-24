@@ -5,16 +5,16 @@ Product::Product(std::string name, double cost)
 	if(_cost < 0) throw std::runtime_error("Cost is negative!!");
 }
 
-virtual Product::~Product() { }
+Product::~Product() { }
 
 void Product::set_quantity(int quantity){
 	_quantity = quantity;
 }
 
-virtual double const Product::price(){ }
+double const Product::price(){ }
 
-std::ostream& operator<<(ostream& ost, const Product& product) {
-	if (_quantity == 0){
+std::ostream& operator<<(std::ostream& ost, const Product& product) {
+	if (product._quantity == 0){
 		ost << product._name + " ($" + std::to_string(product._cost) + ")";
  	}
  	else {

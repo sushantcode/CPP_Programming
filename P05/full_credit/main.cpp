@@ -5,20 +5,22 @@
 
 int main(){
 	Taxed snicker{"Snicker", 1.99}, pen{"Pen", 2.29}, icecream{"Ice Cream", 3.99};
+	Taxed::set_tax_rate(0.0825);
 	Taxfree milk{"Milk", 2.99}, water{"Water", 3.89}, bread{"Bread", 2.49};
-	std::vector <Product> cart;
+	std::vector <Taxed> cartTax;
+	std::vector <Taxfree> cartTaxFree;
 	const std::string menu = R"(
-	============================================
-			Welcome to the Our Store
-	============================================
-	0) Snicker ($1.99)
-	1) Pen ($2.29)
-	2) Ice Cream ($3.99)
-	3) Milk ($2.99)
-	4) Water ($3.89)
-	5) Bread ($2.49)
+============================================
+		Welcome to the Our Store
+============================================
+0) Snicker ($1.99)
+1) Pen ($2.29)
+2) Ice Cream ($3.99)
+3) Milk ($2.99)
+4) Water ($3.89)
+5) Bread ($2.49)
 	
-	)";
+)";
 	int quantity = 1;
 	int index;
 	while(quantity != 0){
@@ -29,19 +31,19 @@ int main(){
 			case 0:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(snicker);
+					cartTax.push_back(snicker);
 				}
-				catch (exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+				catch (std::exception& e) {
+					std::cerr << "### Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
 				
 			case 1:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(pen);
+					cartTax.push_back(pen);
 				}
-				catch (exception& e) {
+				catch (std::exception& e) {
 					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
@@ -49,9 +51,9 @@ int main(){
 			case 2:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(icecream);
+					cartTax.push_back(icecream);
 				}
-				catch (exception& e) {
+				catch (std::exception& e) {
 					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
@@ -59,9 +61,9 @@ int main(){
 			case 3:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(milk);
+					cartTaxFree.push_back(milk);
 				}
-				catch (exception& e) {
+				catch (std::exception& e) {
 					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
@@ -69,9 +71,9 @@ int main(){
 			case 4:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(water);
+					cartTaxFree.push_back(water);
 				}
-				catch (exception& e) {
+				catch (std::exception& e) {
 					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
@@ -79,22 +81,26 @@ int main(){
 			case 5:
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
-					cart.push_back(bread);
+					cartTaxFree.push_back(bread);
 				}
-				catch (exception& e) {
+				catch (std::exception& e) {
 					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
 				}
 				break;
 				
 			default:
-				std::cerr << "Invalid product index!!" << e.what() << std::endl;
+				std::cerr << "Invalid product index!!" << std::endl;
 				break;
 		}
 		std::cout << "Current Order\n-------------------------------\n" << std::endl;
-		int total_price;
-		for(int i = 0; i < cart.size(); i++){
-			std::cout << cart[i] << std::endl;
-			total_price += cart[i].price();
+		int total_price = 0;
+		for (int i = 0; i < cartTax.size(); i++){
+			std::cout << cartTax[i] << std::endl;
+			total_price += cartTax[i].price();
+		}
+		for (int j = 0; j < cartTaxFree.size(); j++){
+			std::cout << cartTaxFree[j] << std::endl;
+			total_price += cartTaxFree[j].price();
 		}
 		std::cout << "Total price: $" << total_price << std::endl;
 	}

@@ -1,12 +1,17 @@
+#ifndef __TAXED_H
+#define __TAXED_H
+
 #include <iostream>
 #include <string>
+#include "product.h"
 
-class Taxed{
+class Taxed : public Product{
 	public:
 		Taxed(std::string name, double cost);
 		virtual ~Taxed();
-		static double set_tax_rate(double sales_tax);
-		override double const price();
+		static void set_tax_rate(double sales_tax);
+		double const price();
 	private:
 		static double _tax;
-}
+};
+#endif
