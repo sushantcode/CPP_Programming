@@ -22,6 +22,7 @@ int main(){
 	int quantity = 1;
 	int index;
 	while(quantity != 0){
+		std::cout << menu << std::endl;
 		std::cout << "\nEnter quantity (0 to exit) and product index: " << std::endl;
 		std::cin >> quantity >> index;
 		switch(index){
@@ -86,12 +87,16 @@ int main(){
 				break;
 				
 			default:
-				std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+				std::cerr << "Invalid product index!!" << e.what() << std::endl;
+				break;
 		}
 		std::cout << "Current Order\n-------------------------------\n" << std::endl;
-		
-			
+		int total_price;
+		for(int i = 0; i < cart.size(); i++){
+			std::cout << cart[i] << std::endl;
+			total_price += cart[i].price();
+		}
+		std::cout << "Total price: $" << total_price << std::endl;
 	}
-	
-	
+	return 0;
 }
