@@ -8,4 +8,8 @@ class Product{
 		set_quantity(int quantity);
 		virtual double const price();
 		friend std::ostream& operator<<(ostream& ost, const Product& product);
+	protected:
+		int _quantity;
+		double _cost;
+		std::string _name;
 }
