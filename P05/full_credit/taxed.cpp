@@ -12,4 +12,9 @@ static double Taxed::set_tax_rate(double sales_tax){
 	_tax = sales_tax;
 	return _tax;
 }
-override double const price();
+
+override double const Taxed::price(){
+	Product::price(){
+		return _quantity*_cost*(1+_tax);
+	}
+}
