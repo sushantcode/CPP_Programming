@@ -9,7 +9,6 @@ Product::~Product() { }
 
 void Product::set_quantity(int quantity){
 	_quantity = quantity;
-	std::cout << _quantity <<std::endl;
 }
 
 double const Product::price(){ }

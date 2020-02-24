@@ -1,6 +1,6 @@
 #include "taxed.h"
 
-double Taxed::_tax = 0;
+double Taxed::_tax;
 
 Taxed::Taxed(std::string name, double cost)
 	: Product(name, cost){ }
@@ -12,5 +12,5 @@ void Taxed::set_tax_rate(double sales_tax){
 }
 
 double const Taxed::price(){
-	return _tax;//(_quantity * _cost) + (_quantity * _cost * _tax);
+	return ((double)_quantity * _cost) + ((double)_quantity * _cost * _tax);
 }

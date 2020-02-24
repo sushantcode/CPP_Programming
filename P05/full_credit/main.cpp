@@ -11,7 +11,7 @@ int main(){
 	std::vector <Taxfree> cartTaxFree;
 	const std::string menu = R"(
 ============================================
- Welcome to the Our Store
+    Welcome to the Our Store
 ============================================
 0) Snicker ($1.99)
 1) Pen ($2.29)
@@ -37,7 +37,7 @@ int main(){
 					cartTax.push_back(snicker);
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
@@ -100,8 +100,8 @@ int main(){
 				std::cerr << "Invalid product index!!" << std::endl;
 				break;
 		}
-		std::cout << "Current Order\n-------------------------------\n" << std::endl;
-		int total_price = 0;
+		std::cout << "Current Order\n-------------------------------" << std::endl;
+		double total_price = 0;
 		for (int i = 0; i < cartTax.size(); i++){
 			std::cout << cartTax[i] << std::endl;
 			total_price += cartTax[i].price();
