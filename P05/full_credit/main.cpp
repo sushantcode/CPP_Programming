@@ -10,7 +10,7 @@ int main(){
 	std::vector <Product> cart;
 	const std::string menu = R"(
 ============================================
-    Welcome to the Our Store
+    	Welcome to the Our Store
 ============================================
 0) Snicker ($1.99)
 1) Pen ($2.29)
@@ -24,7 +24,7 @@ int main(){
 	int index;
 	double total_price = 0;
 	std::cout << menu << std::endl;
-	std::cout << "Enter quantity (0 to exit) and product index: ";
+	std::cout << "Enter quantity (0 to exit) and product index (or any number preceded by 0 to checkout): ";
 	std::cin >> quantity >> index;
 	while(quantity != 0){
 		std::cout << menu << std::endl;
@@ -104,14 +104,14 @@ int main(){
 				std::cerr << "Invalid product index!!" << std::endl;
 				break;
 		}
-		std::cout << "Current Order\n-------------------------------" << std::endl;
+		std::cout << "Current Order\n--------------------------------------" << std::endl;
 		std::cout << std::fixed;
 		std::cout << std::setprecision(2);
 		for (int i = 0; i < cart.size(); i++){
 			std::cout << cart[i] << std::endl;
 		}
 		std::cout << "\nTotal price: $" << total_price << std::endl;
-		std::cout << "\nEnter quantity (0 to exit) and product index: ";
+		std::cout << "Enter quantity (0 to exit) and product index (or any number preceded by 0 to checkout): ";
 		std::cin >> quantity >> index;
 	}
 	return 0;
