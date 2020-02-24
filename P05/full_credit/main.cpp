@@ -49,7 +49,7 @@ int main(){
 					total_price += pen.price();
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
@@ -61,7 +61,7 @@ int main(){
 					total_price += icecream.price();
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
@@ -73,7 +73,7 @@ int main(){
 					total_price += milk.price();
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
@@ -82,9 +82,10 @@ int main(){
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					water.Product::set_quantity(quantity);
 					cart.push_back(water);
+					total_price += water.price();
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
@@ -96,7 +97,7 @@ int main(){
 					total_price += bread.price();
 				}
 				catch (std::exception& e) {
-					std::cerr << "Invalid quantity!!" << e.what() << std::endl;
+					std::cerr << e.what() << std::endl;
 				}
 				break;
 				
