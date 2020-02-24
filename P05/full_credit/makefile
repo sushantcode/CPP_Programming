@@ -16,4 +16,4 @@ taxfree.o: taxfree.cpp
 	$(CXX) $(CXXFLAGS) -c taxfree.cpp -o taxfree.o
 
 clean:
-	rm -f *.o *.gch a.out  coin
+	rm -f *.o *.gch a.out store

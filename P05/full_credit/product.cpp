@@ -9,6 +9,7 @@ Product::~Product() { }
 
 void Product::set_quantity(int quantity){
 	_quantity = quantity;
+	std::cout << _quantity <<std::endl;
 }
 
 double const Product::price(){ }
@@ -18,7 +19,7 @@ std::ostream& operator<<(std::ostream& ost, const Product& product) {
 		ost << product._name + " ($" + std::to_string(product._cost) + ")";
  	}
  	else {
- 		ost << product._name + " ($" + std::to_string(product._quantity)+ "@" +  std::to_string(product._cost) + ")";
+ 		ost << product._name + " (" + std::to_string(product._quantity)+ " @ $" +  std::to_string(product._cost) + ")";
  	}
  	return ost;
 }
