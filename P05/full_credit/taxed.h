@@ -10,7 +10,7 @@ class Taxed : public Product{
 		Taxed(std::string name, double cost);
 		virtual ~Taxed();
 		static void set_tax_rate(double sales_tax);
-		double const price();
+		double const price() override;
 	private:
 		static double _tax;
 };

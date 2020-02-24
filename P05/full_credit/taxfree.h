@@ -9,6 +9,6 @@ class Taxfree : public Product{
 	public:
 		Taxfree(std::string name, double cost);
 		virtual ~Taxfree();
-		double const price();
+		double const price() override;
 };
 #endif
