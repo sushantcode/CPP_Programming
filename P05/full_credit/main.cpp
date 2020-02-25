@@ -7,7 +7,8 @@ int main(){
 	Taxed snicker{"Snicker", 1.99}, pen{"Pen", 2.29}, icecream{"Ice Cream", 3.99};
 	Taxed::set_tax_rate(0.0825);
 	Taxfree milk{"Milk", 2.99}, water{"Water", 3.89}, bread{"Bread", 2.49};
-	std::vector <Product> cart;
+	std::vector <Taxed> cartTax;
+	std::vector <Taxfree> cartTaxFree;
 	const std::string menu = R"(
 ============================================
     	Welcome to the Our Store
@@ -33,7 +34,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					snicker.Product::set_quantity(quantity);
-					cart.push_back(snicker);
+					cartTax.push_back(snicker);
 					total_price += snicker.price();
 				}
 				catch (std::exception& e) {
@@ -45,7 +46,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					pen.Product::set_quantity(quantity);
-					cart.push_back(pen);
+					cartTax.push_back(pen);
 					total_price += pen.price();
 				}
 				catch (std::exception& e) {
@@ -57,7 +58,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					icecream.Product::set_quantity(quantity);
-					cart.push_back(icecream);
+					cartTax.push_back(icecream);
 					total_price += icecream.price();
 				}
 				catch (std::exception& e) {
@@ -69,7 +70,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					milk.Product::set_quantity(quantity);
-					cart.push_back(milk);
+					cartTaxFree.push_back(milk);
 					total_price += milk.price();
 				}
 				catch (std::exception& e) {
@@ -81,7 +82,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					water.Product::set_quantity(quantity);
-					cart.push_back(water);
+					cartTaxFree.push_back(water);
 					total_price += water.price();
 				}
 				catch (std::exception& e) {
@@ -93,7 +94,7 @@ int main(){
 				try{
 					if(quantity < 0) throw std::runtime_error("Invalid quantity!!");
 					bread.Product::set_quantity(quantity);
-					cart.push_back(bread);
+					cartTaxFree.push_back(bread);
 					total_price += bread.price();
 				}
 				catch (std::exception& e) {
@@ -108,8 +109,11 @@ int main(){
 		std::cout << "Current Order\n--------------------------------------" << std::endl;
 		std::cout << std::fixed;
 		std::cout << std::setprecision(2);
-		for (int i = 0; i < cart.size(); i++){
-			std::cout << cart[i] << std::endl;
+		for (int i = 0; i < cartTax.size(); i++){
+			std::cout << cartTax[i] << std::endl;
+		}
+		for (int i = 0; i < cartTaxFree.size(); i++){
+			std::cout << cartTaxFree[i] << std::endl;
 		}
 		std::cout << "\nTotal price: $" << total_price << std::endl;
 		std::cout << "Enter quantity (0 to exit) and product index (or any number preceded by 0 to checkout): ";
