@@ -1,10 +1,10 @@
 CXXFLAGS = --std=c++17
 
-store: main.o product.o taxed.o taxfree.o
-	$(CXX) $(CXXFLAGS) main.o product.o taxed.o taxfree.o -o store
+store: store.o product.o taxed.o taxfree.o
+	$(CXX) $(CXXFLAGS) store.o product.o taxed.o taxfree.o -o store
 
-main.o: main.cpp
-	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
+main.o: store.cpp
+	$(CXX) $(CXXFLAGS) -c store.cpp -o store.o
 
 product.o: product.cpp
 	$(CXX) $(CXXFLAGS) -c product.cpp -o product.o
