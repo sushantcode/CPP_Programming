@@ -9,6 +9,6 @@ double const Taxfree::price(){
 		return _quantity*_cost;
 }
 
-Product* clone(){
+Product* Taxfree::clone(){
 	return new Taxfree(*this);
 }

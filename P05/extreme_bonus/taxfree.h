@@ -10,6 +10,6 @@ class Taxfree : public Product{
 		Taxfree(std::string name, double cost);
 		virtual ~Taxfree();
 		double const price() override;
-		Product* clone() override;
+		Product* clone()override;
 };
 #endif

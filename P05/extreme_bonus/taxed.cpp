@@ -15,6 +15,6 @@ double const Taxed::price(){
 	return ((double)_quantity * _cost) + ((double)_quantity * _cost * _tax);
 }
 
-Product* clone(){
+Product* Taxed::clone(){
 	return new Taxed(*this);
 }

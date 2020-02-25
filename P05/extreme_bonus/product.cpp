@@ -23,6 +23,4 @@ std::ostream& operator<<(std::ostream& ost, const Product& product) {
  	return ost;
 }
 
-Product* clone(){
-	
-}
+Product* Product::clone(){ }
