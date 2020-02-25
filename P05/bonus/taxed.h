@@ -11,6 +11,7 @@ class Taxed : public Product{
 		virtual ~Taxed();
 		static void set_tax_rate(double sales_tax);
 		double const price() override;
+		void tester(std::string *name, double *cost, double *tax);
 	private:
 		static double _tax;
 };
