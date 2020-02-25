@@ -1,19 +1,19 @@
 CXXFLAGS = --std=c++17
 
-store: test.o product.o taxed.o taxfree.o
+test: test.o product.o taxed.o taxfree.o
 	$(CXX) $(CXXFLAGS) test.o product.o taxed.o taxfree.o -o test
 
-main.o: test.cpp
-	$(CXX) $(CXXFLAGS) -c test.cpp -o test.o
+test.o: test.cpp
+	$(CXX) $(CXXFLAGS) test.cpp -c -o test.o
 
 product.o: product.cpp
-	$(CXX) $(CXXFLAGS) -c product.cpp -o product.o
+	$(CXX) $(CXXFLAGS) product.cpp -c -o product.o
 
 taxed.o: taxed.cpp
-	$(CXX) $(CXXFLAGS) -c taxed.cpp -o taxed.o
+	$(CXX) $(CXXFLAGS) taxed.cpp -c -o taxed.o
 
 taxfree.o: taxfree.cpp
-	$(CXX) $(CXXFLAGS) -c taxfree.cpp -o taxfree.o
+	$(CXX) $(CXXFLAGS) taxfree.cpp -c -o taxfree.o
 
 clean:
 	rm -f *.o *.gch a.out test
