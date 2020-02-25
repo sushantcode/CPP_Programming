@@ -26,8 +26,9 @@ int main(){
 	double total_price = 0;
 	std::cout << menu << std::endl;
 	std::cout << "Enter quantity (0 to exit) and product index (or any number preceded by 0 to checkout): ";
-	std::cin >> quantity >> index;
+	std::cin >> quantity;
 	while(quantity != 0){
+		std::cin >> index;
 		std::cout << menu << std::endl;
 		switch(index){
 			case 0:
@@ -117,7 +118,7 @@ int main(){
 		}
 		std::cout << "\nTotal price: $" << total_price << std::endl;
 		std::cout << "Enter quantity (0 to exit) and product index (or any number preceded by 0 to checkout): ";
-		std::cin >> quantity >> index;
+		std::cin >> quantity;
 	}
 	return 0;
 }
