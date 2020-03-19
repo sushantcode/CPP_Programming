@@ -1,3 +1,6 @@
+#ifndef _OPTIONS_H
+#define _OPTIONS_H
+
 #include <iostream>
 #include <string>
 
@@ -13,3 +16,4 @@ class Options{
 		std::string _name;
 		double _cost;
 };
+#endif
