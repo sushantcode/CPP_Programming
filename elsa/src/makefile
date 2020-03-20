@@ -1,10 +1,10 @@
 CXXFLAGS = --std=c++17
 
-test: test.o customer.o store.o options.o desktop.o
-	$(CXX) $(CXXFLAGS) test.o customer.o store.o options.o desktop.o -o test
+store: main.o customer.o store.o options.o desktop.o order.o
+	$(CXX) $(CXXFLAGS) main.o customer.o store.o options.o desktop.o order.o -o store
 
-test.o: test.cpp
-	$(CXX) $(CXXFLAGS) test.cpp -c -o test.o
+main.o: main.cpp
+	$(CXX) $(CXXFLAGS) main.cpp -c -o main.o
 
 customer.o: customer.cpp
 	$(CXX) $(CXXFLAGS) customer.cpp -c -o customer.o
@@ -18,5 +18,8 @@ options.o: options.cpp
 desktop.o: desktop.cpp
 	$(CXX) $(CXXFLAGS) desktop.cpp -c -o desktop.o
 	
+order.o: order.cpp
+	$(CXX) $(CXXFLAGS) order.cpp -c -o order.o
+	
 clean:
-	rm -f *.o *.gch a.out test
+	rm -f *.o *.gch a.out store

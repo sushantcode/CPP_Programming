@@ -5,6 +5,7 @@
 #include "customer.h"
 #include "options.h"
 #include "desktop.h"
+#include "order.h"
 
 class Store{
 	public:
@@ -16,7 +17,7 @@ class Store{
 		Options& option(int index);
 		int new_desktop();
 		void add_option(int option, int desktop);
-		int num_desktop();
+		int num_desktops();
 		Desktop& desktop(int index);
 		int new_order(int customer);
 		void add_desktop(int desktop, int order);

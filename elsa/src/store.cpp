@@ -35,7 +35,7 @@ void Store::add_option(int option, int desktop){
 	(desktops.at(desktop)).add_option(*(options.at(option)));
 }
 
-int Store::num_desktop(){
+int Store::num_desktops(){
 	return desktops.size();
 }
 
@@ -45,7 +45,7 @@ Desktop& Store::desktop(int index){
 
 int Store::new_order(int customer){
 	int curr_size = orders.size();
-	Desktop *newOrder = new Order();
+	Order *newOrder = new Order(customers.at(customer));
 	orders.push_back(*newOrder);
 	return curr_size;
 }
