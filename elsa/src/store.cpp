@@ -42,3 +42,22 @@ int Store::num_desktop(){
 Desktop& Store::desktop(int index){
 	return desktops.at(index);
 }
+
+int Store::new_order(int customer){
+	int curr_size = orders.size();
+	Desktop *newOrder = new Order();
+	orders.push_back(*newOrder);
+	return curr_size;
+}
+
+void Store::add_desktop(int desktop, int order){
+	(orders.at(order)).add_product(desktops.at(desktop));
+}
+
+int Store::num_orders(){
+	return orders.size();
+}
+
+Order& Store::order(int index){
+	return orders.at(index);
+}

@@ -1,0 +1,22 @@
+#ifndef _ORDER_H
+#define _ORDER_H
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include "desktop.h"
+#include "customer.h"
+
+class Order{
+	public:
+		Order(Customer& customer);
+		~Order();
+		int add_product(Desktop& desktop);
+		double price() const;
+		friend std::ostream& operator<<(std::ostream& ost, const Order& order);
+		
+	private:
+		Customer& _customer;
+		std::vector<Desktop*> _products;
+};
+#endif

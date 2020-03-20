@@ -18,11 +18,16 @@ class Store{
 		void add_option(int option, int desktop);
 		int num_desktop();
 		Desktop& desktop(int index);
+		int new_order(int customer);
+		void add_desktop(int desktop, int order);
+		int num_orders();
+		Order& order(int index);
 		
 	private:
 		std::vector<Customer> customers;
 		std::vector<Options*> options;
 		std::vector<Desktop> desktops;
+		std::vector<Order> orders;
 };
 
 #endif
