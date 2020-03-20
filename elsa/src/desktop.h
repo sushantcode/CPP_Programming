@@ -9,8 +9,8 @@
 class Desktop{
 	public:
 		void add_option(Options& option);
-		double price();
-		friend std::ostream& operator<<(std::ostream& ost, const Options& option);
+		double price() const;
+		friend std::ostream& operator<<(std::ostream& ost, const Desktop& Desktop);
 		
 	private:
 		std::vector<Options*> options;

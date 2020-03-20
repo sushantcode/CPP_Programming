@@ -28,12 +28,11 @@ int Store::new_desktop(){
 	int curr_size = desktops.size();
 	Desktop *newDesktop = new Desktop();
 	desktops.push_back(*newDesktop);
-	return curr_size + 1;
+	return curr_size;
 }
 
 void Store::add_option(int option, int desktop){
-	Desktop target = desktops.at(desktop);
-	target.add_option(*options.at(option));
+	(desktops.at(desktop)).add_option(*(options.at(option)));
 }
 
 int Store::num_desktop(){

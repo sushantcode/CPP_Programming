@@ -4,10 +4,10 @@ void Desktop::add_option(Options& option){
 	options.push_back(&option);
 }
 
-double Desktop::price(){
+double Desktop::price() const{
 	double sum = 0;
 	for (auto o : options){
-		sum = sum + o->_costs;
+		sum = sum + o->cost();
 	}
 	return sum;
 }
