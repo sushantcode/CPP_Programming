@@ -13,7 +13,7 @@ Customer& Store::customer(int index){
 }
 
 void Store::add_option(Options& option){
-	options.push_back(&option);
+	options.push_back(new Options(option));
 }
 
 int Store::num_options(){

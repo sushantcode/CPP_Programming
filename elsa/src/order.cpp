@@ -6,7 +6,7 @@ Order::Order(Customer& customer)
 Order::~Order(){ }
 
 int Order::add_product(Desktop& desktop){
-	_products.push_back(&desktop);
+	_products.push_back(new Desktop(desktop));
 }
 
 double Order::price() const{
@@ -18,6 +18,10 @@ double Order::price() const{
 }
 
 std::ostream& operator<<(std::ostream& ost, const Order& order){
-	ost << order.price();
+	ost << "Customer: " << order._customer << "\n";
+	for (auto p : order._products){
+		ost << *p;
+	}
+	ost << "\nTotal price: " << order.price();
 	return ost;
 }

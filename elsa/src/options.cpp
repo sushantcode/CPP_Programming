@@ -11,7 +11,7 @@ double Options::cost(){
 }
 
 std::string Options::to_string() const{
-	return _name + " costs " + std::to_string(_cost);
+	return _name + " ($" + std::to_string(_cost) + ")";
 }
 
 std::ostream& operator<<(std::ostream& ost, const Options& option){

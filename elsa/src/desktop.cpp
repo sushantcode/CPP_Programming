@@ -1,7 +1,7 @@
 #include "desktop.h"
 
 void Desktop::add_option(Options& option){
-	options.push_back(&option);
+	options.push_back(new Options(option));
 }
 
 double Desktop::price() const{
@@ -13,6 +13,10 @@ double Desktop::price() const{
 }
 
 std::ostream& operator<<(std::ostream& ost, const Desktop& desktop){
-	ost << desktop.price();
+	std::string output;
+	for (auto o : desktop.options){
+		output = output + o->to_string() + "\n";
+	}
+	ost << "Desktop includes\n" << output;
 	return ost;
 }
