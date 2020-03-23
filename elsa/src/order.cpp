@@ -22,6 +22,6 @@ std::ostream& operator<<(std::ostream& ost, const Order& order){
 	for (auto p : order._products){
 		ost << *p;
 	}
-	ost << "\nTotal price: " << order.price();
+	ost << "\nTotal price: " << std::fixed << std::setprecision(2) << order.price();
 	return ost;
 }
