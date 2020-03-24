@@ -3,7 +3,7 @@
 
 #include <gtkmm.h>
 
-class Mainwin : public Gtk::window{
+class Mainwin : public Gtk::Window{
 	public:
 		Mainwin();
 		virtual ~Mainwin();
@@ -18,7 +18,7 @@ class Mainwin : public Gtk::window{
 		void on_insert_desktop_click();
 		void on_insert_order_click();
 		void on_insert_customer_click();
-		void 0n_about_click();
+		void on_about_click();
 		std::string get_string(std::string promt);
 		double get_double(std::string prompt);
 		int get_in(std::string prompt);
