@@ -1,19 +1,20 @@
 #include "mainwin.h"
 
 Mainwin::Mainwin() : store{nullptr}{
-	set_default_size(1000, 500);
+	set_default_size(400, 200);
 	set_title("Exceptional Laptops and Supercomputer Assessories");
 	Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
 	add(*vbox);
+	
 	//adding menubar
 	Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar);
 	vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 	
 	//adding File menubar
 	Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
-	menubar->append(*menuitem_file);
-	Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
-	menuitem_file->set_submenu(*filemenu);
+    menubar->append(*menuitem_file);
+    Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
+    menuitem_file->set_submenu(*filemenu);
 	
 	//adding Quit to the File menu
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
@@ -116,7 +117,7 @@ Mainwin::Mainwin() : store{nullptr}{
 Mainwin::~Mainwin(){ }
 
 void Mainwin::on_quit_click() {
-    close();
+	close();
 }
 
 void Mainwin::on_about_click() {
@@ -125,7 +126,7 @@ void Mainwin::on_about_click() {
     dialog.set_program_name("ELSA");
     auto logo = Gdk::Pixbuf::create_from_file("comp.png");
     dialog.set_logo(logo);
-    dialog.set_version("Version 1.2.1");
+    dialog.set_version("Version 1.1.1");
     dialog.set_copyright("Copyright 2020");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
     std::vector< Glib::ustring > authors = {"Sushant Gupta"};
@@ -136,7 +137,7 @@ void Mainwin::on_about_click() {
     dialog.run();
 }
 
-void Mianwin::on_view_peripheral_click(){
+void Mainwin::on_view_peripheral_click(){
 	
 }
 
@@ -169,15 +170,15 @@ void Mainwin::on_insert_customer_click(){
 }
 
 std::string Mainwin::get_string(std::string promt){
-
+	return " ";
 }
 
 double Mainwin::get_double(std::string prompt){
-
+	return 0.0;
 }
 
 int Mainwin::get_in(std::string prompt){
-	
+	return 0;
 }
 
 void Mainwin::set_data(std::string s){

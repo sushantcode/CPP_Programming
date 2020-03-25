@@ -3,7 +3,7 @@
 
 #include <gtkmm.h>
 #include "store.h"
-#include "entrydialog.h"
+//#include "entrydialog.h"
 
 class Mainwin : public Gtk::Window{
 	public:
@@ -31,5 +31,5 @@ class Mainwin : public Gtk::Window{
 		Store *store;
 		Gtk::Label *data;
 		Gtk::Label *msg;
-}
+};
 #endif
