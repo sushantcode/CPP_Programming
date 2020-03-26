@@ -1,7 +1,7 @@
 #include "mainwin.h"
 
 Mainwin::Mainwin() : store{nullptr}{
-	set_default_size(400, 200);
+	set_default_size(800, 500);
 	set_title("Exceptional Laptops and Supercomputer Assessories");
 	Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
 	add(*vbox);
@@ -123,7 +123,6 @@ void Mainwin::on_quit_click() {
 void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
-    dialog.set_program_name("ELSA");
     auto logo = Gdk::Pixbuf::create_from_file("comp.png");
     dialog.set_logo(logo);
     dialog.set_version("Version 1.1.1");
@@ -169,16 +168,27 @@ void Mainwin::on_insert_customer_click(){
 	
 }
 
-std::string Mainwin::get_string(std::string promt){
-	return " ";
+std::string Mainwin::get_string(std::string prompt){
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("write here...");
+    edialog.run();
+	return edialog.get_text();
 }
 
 double Mainwin::get_double(std::string prompt){
-	return 0.0;
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("write here...");
+    edialog.run();
+    double result = std::stod(edialog.get_text(), nullptr);
+	return result;
 }
 
 int Mainwin::get_in(std::string prompt){
-	return 0;
+	EntryDialog edialog{*this, prompt, true};
+    edialog.set_text("write here...");
+    edialog.run();
+    int result = std::stoi(edialog.get_text());
+	return result;
 }
 
 void Mainwin::set_data(std::string s){

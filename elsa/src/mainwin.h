@@ -3,7 +3,7 @@
 
 #include <gtkmm.h>
 #include "store.h"
-//#include "entrydialog.h"
+#include "entrydialog.h"
 
 class Mainwin : public Gtk::Window{
 	public:
