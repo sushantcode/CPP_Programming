@@ -2,6 +2,7 @@
 #define _MAINWIN_H
 
 #include <gtkmm.h>
+#include <sstream>
 #include "store.h"
 #include "entrydialog.h"
 

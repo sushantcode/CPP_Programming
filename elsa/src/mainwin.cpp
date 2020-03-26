@@ -1,6 +1,6 @@
 #include "mainwin.h"
 
-Mainwin::Mainwin() : store{nullptr}{
+Mainwin::Mainwin() {
 	set_default_size(800, 500);
 	set_title("Exceptional Laptops and Supercomputer Assessories");
 	Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
@@ -112,6 +112,8 @@ Mainwin::Mainwin() : store{nullptr}{
     
     //making the box and everything visible to each other
     vbox->show_all();
+    
+    store = new Store();
 }
 
 Mainwin::~Mainwin(){ }
@@ -149,7 +151,12 @@ void Mainwin::on_view_order_click(){
 }
 
 void Mainwin::on_view_customer_click(){
-	
+	std::ostringstream custList;
+	for(int i = 0; i < store->num_customers(); ++i)
+	{
+		custList << "\n" << (i + 1) << ") " << store->customer(i);
+	}
+	set_data("<b> <span size = '20000'> Customers </span></b> \n" + custList.str());	
 }
 
 void Mainwin::on_insert_peripheral_click(){
@@ -165,7 +172,15 @@ void Mainwin::on_insert_order_click(){
 }
 
 void Mainwin::on_insert_customer_click(){
-	
+	std::string name = get_string("Customer name?");
+	if(name.size()) {
+		std::string phone = get_string("Customer phone (xxx-xxx-xxxx)?");
+		std::string email = get_string("Customer email (xxx@domain.com)?");
+		Customer customer{name, phone, email};
+		store->add_customer(customer);
+		set_msg("Added customer " + name);
+		on_view_customer_click();
+	}
 }
 
 std::string Mainwin::get_string(std::string prompt){
@@ -192,10 +207,10 @@ int Mainwin::get_in(std::string prompt){
 }
 
 void Mainwin::set_data(std::string s){
-	
+	data->set_markup(s);
 }
 
 void Mainwin::set_msg(std::string s){
-	
+	msg->set_text(s);
 }
 
