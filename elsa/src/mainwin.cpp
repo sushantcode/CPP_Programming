@@ -84,26 +84,14 @@ Mainwin::Mainwin() {
     menuitem_about->signal_activate().connect([this] {this->on_about_click();});
     helpmenu->append(*menuitem_about);
     
-    /*//adding a toolbar to the vertical box below the menu
-    Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
-    vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
-	
-	// Push the quit botton all the way to the right by setting set_expand true
-    Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
-    sep->set_expand(true);
-    toolbar->append(*sep);
-    
-    //adding icon to quit
-    Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
-    quit_button->set_tooltip_markup("Exit game");
-    quit_button->signal_clicked().connect([this] {this->on_quit_click();});
-    toolbar->append(*quit_button);*/
-    
     //providing text entry box to show data
     data = Gtk::manage(new Gtk::Label());
     data->set_hexpand(true);
     data->set_vexpand(true);
+    data->set_halign(Gtk::ALIGN_START);
+    data->set_valign(Gtk::ALIGN_START);
     vbox->add(*data);
+    Gtk::Label{"", Gtk::ALIGN_START, Gtk::ALIGN_START};
     
     //providing a status bar for app messages
     msg = Gtk::manage(new Gtk::Label());
@@ -125,6 +113,7 @@ void Mainwin::on_quit_click() {
 void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog;
     dialog.set_transient_for(*this); // Avoid the discouraging warning
+    dialog.set_program_name("ELSA");
     auto logo = Gdk::Pixbuf::create_from_file("comp.png");
     dialog.set_logo(logo);
     dialog.set_version("Version 1.1.1");
@@ -133,7 +122,7 @@ void Mainwin::on_about_click() {
     std::vector< Glib::ustring > authors = {"Sushant Gupta"};
     dialog.set_authors(authors);
     std::vector< Glib::ustring > artists = {
-        "Logo by Designmantic, free license https://s3.amazonaws.com/designmantic-logos/logos/2020/Mar/medium-9340-5e7a99a4aecfb.png"};
+        "Open Clip Art Libray through Public Domain Files, http://www.publicdomainfiles.com/show_file.php?id=13938399629439"};
     dialog.set_artists(artists);
     dialog.run();
 }
@@ -142,30 +131,30 @@ void Mainwin::on_view_peripheral_click(){
 	std::ostringstream optList;
 	for(int i=0; i<store->num_options(); ++i) 
 		optList << i << ") " << store->option(i) << "\n";
-	set_data("<b> <span size = '20000'> Peripherals </span></b> \n\n" + optList.str());
+	set_data("<b> <span size = '20000'>Peripherals</span></b> \n" + optList.str());
 }
 
 void Mainwin::on_view_desktop_click(){
 	std::ostringstream DeskList;
 	for(int i=0; i<store->num_desktops(); ++i) 
-		DeskList << i << ") " << store->desktop(i) << "\n";
-	set_data("<b> <span size = '20000'> Desktop </span></b> \n\n" + DeskList.str());
+		DeskList << "<b> <span size = '10000'>" << i << ") " << "</span></b>" << store->desktop(i) << "\n";
+	set_data("<b> <span size = '20000'>Desktop</span></b> \n" + DeskList.str());
 }
 
 void Mainwin::on_view_order_click(){
 	std::ostringstream orderList;
-	for(int i=0; i<store->num_customers(); ++i) 
-		orderList << i << ") " << store->customer(i) << "\n";
-	set_data("<b> <span size = '20000'> Order </span></b> \n\n" + orderList.str());
+	for(int i=0; i<store->num_orders(); ++i) 
+		orderList << i << ") " << store->order(i) << "\n";
+	set_data("<b> <span size = '20000'>Order</span></b> \n" + orderList.str());
 }
 
 void Mainwin::on_view_customer_click(){
 	std::ostringstream custList;
 	for(int i = 0; i < store->num_customers(); ++i)
 	{
-		custList << "\n" << i << ") " << store->customer(i);
+		custList << i << ") " << store->customer(i) << "\n";
 	}
-	set_data("<b> <span size = '20000'> Customers </span></b> \n\n" + custList.str());	
+	set_data("<b> <span size = '20000'>Customers</span></b> \n" + custList.str());	
 }
 
 void Mainwin::on_insert_peripheral_click(){
@@ -186,7 +175,7 @@ void Mainwin::on_insert_desktop_click(){
 		for(int i=0; i<store->num_options(); ++i){
 			optList << i << ") " << store->option(i) << "\n";
 		}
-		thisDesk << "\n\n<b> <span size = '15000'> Available Peripherals: </span></b>\n" << optList.str();
+		thisDesk << "\n\n<b> <span size = '10000'>Available Peripherals: </span></b>\n" << optList.str();
 		set_data(thisDesk.str());
 		int option = get_in("Add which peripheral (-1 when done)");
 		if (option == -1) break;
@@ -202,8 +191,18 @@ void Mainwin::on_insert_desktop_click(){
 
 void Mainwin::on_insert_order_click(){
 	on_view_customer_click();
-	int customer = get_in("Select Customer:");
-	int order = store->new_order(customer);
+	int customer = -1;
+	int order = -1;
+	while(true){
+		customer = get_in("Select Customer:");
+		try{
+			order = store->new_order(customer);
+			break;
+		} 
+		catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "#### INVALID OPTION ####", true}.run();
+		}
+	}
 	while(true){
 		on_view_desktop_click();
 		int desktop = get_in("Select desktop (-1 when done):");
@@ -232,14 +231,14 @@ void Mainwin::on_insert_customer_click(){
 
 std::string Mainwin::get_string(std::string prompt){
 	EntryDialog edialog{*this, prompt, true};
-    edialog.set_text("write here...");
+    edialog.set_text("Type text here...");
     edialog.run();
 	return edialog.get_text();
 }
 
 double Mainwin::get_double(std::string prompt){
 	EntryDialog edialog{*this, prompt, true};
-    edialog.set_text("write here...");
+    edialog.set_text("Type number here...");
     edialog.run();
     double result = std::stod(edialog.get_text(), nullptr);
 	return result;
@@ -247,7 +246,7 @@ double Mainwin::get_double(std::string prompt){
 
 int Mainwin::get_in(std::string prompt){
 	EntryDialog edialog{*this, prompt, true};
-    edialog.set_text("write here...");
+    edialog.set_text("Type number here...");
     edialog.run();
     int result = std::stoi(edialog.get_text());
 	return result;
