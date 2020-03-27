@@ -17,6 +17,6 @@ std::ostream& operator<<(std::ostream& ost, const Desktop& desktop){
 	for (auto o : desktop.options){
 		output = output + o->to_string() + "\n";
 	}
-	ost << "Desktop includes\n" << output;
+	ost << "<b> <span size = '15000'> This Desktop includes: </span></b> \n" << output;
 	return ost;
 }

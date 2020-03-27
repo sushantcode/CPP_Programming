@@ -139,36 +139,83 @@ void Mainwin::on_about_click() {
 }
 
 void Mainwin::on_view_peripheral_click(){
-	
+	std::ostringstream optList;
+	for(int i=0; i<store->num_options(); ++i) 
+		optList << i << ") " << store->option(i) << "\n";
+	set_data("<b> <span size = '20000'> Peripherals </span></b> \n\n" + optList.str());
 }
 
 void Mainwin::on_view_desktop_click(){
-	
+	std::ostringstream DeskList;
+	for(int i=0; i<store->num_desktops(); ++i) 
+		DeskList << i << ") " << store->desktop(i) << "\n";
+	set_data("<b> <span size = '20000'> Desktop </span></b> \n\n" + DeskList.str());
 }
 
 void Mainwin::on_view_order_click(){
-	
+	std::ostringstream orderList;
+	for(int i=0; i<store->num_customers(); ++i) 
+		orderList << i << ") " << store->customer(i) << "\n";
+	set_data("<b> <span size = '20000'> Order </span></b> \n\n" + orderList.str());
 }
 
 void Mainwin::on_view_customer_click(){
 	std::ostringstream custList;
 	for(int i = 0; i < store->num_customers(); ++i)
 	{
-		custList << "\n" << (i + 1) << ") " << store->customer(i);
+		custList << "\n" << i << ") " << store->customer(i);
 	}
-	set_data("<b> <span size = '20000'> Customers </span></b> \n" + custList.str());	
+	set_data("<b> <span size = '20000'> Customers </span></b> \n\n" + custList.str());	
 }
 
 void Mainwin::on_insert_peripheral_click(){
-	
+	std::string name = get_string("Name of new peripheral?");
+	double cost = get_double("Cost?");
+	Options option{name, cost};
+	store->add_option(option);
+	set_msg("Added new peripheral");
+	on_view_peripheral_click();
 }
 
 void Mainwin::on_insert_desktop_click(){
-	
+	int desktop = store->new_desktop();
+	while(true){
+		std::ostringstream thisDesk;
+		thisDesk << store->desktop(desktop);
+		std::ostringstream optList;
+		for(int i=0; i<store->num_options(); ++i){
+			optList << i << ") " << store->option(i) << "\n";
+		}
+		thisDesk << "\n\n<b> <span size = '15000'> Available Peripherals: </span></b>\n" << optList.str();
+		set_data(thisDesk.str());
+		int option = get_in("Add which peripheral (-1 when done)");
+		if (option == -1) break;
+		try{
+			store->add_option(option, desktop);
+		} catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "#### INVALID OPTION ####", true}.run();
+		}
+	}
+	set_msg("Added new desktop");
+	on_view_desktop_click();
 }
 
 void Mainwin::on_insert_order_click(){
-	
+	on_view_customer_click();
+	int customer = get_in("Select Customer:");
+	int order = store->new_order(customer);
+	while(true){
+		on_view_desktop_click();
+		int desktop = get_in("Select desktop (-1 when done):");
+		if(desktop == -1) break;
+		try{
+			store->add_desktop(desktop, order);
+		} catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "#### INVALID OPTION ####", true}.run();
+		}
+	}
+	set_msg("++++ New Order Placed ++++");
+	on_view_order_click();
 }
 
 void Mainwin::on_insert_customer_click(){
