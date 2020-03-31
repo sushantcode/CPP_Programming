@@ -191,10 +191,11 @@ void Mainwin::on_insert_desktop_click(){
 
 void Mainwin::on_insert_order_click(){
 	on_view_customer_click();
-	int customer = -1;
-	int order = -1;
+	int order;
+	int customer;
 	while(true){
-		customer = get_in("Select Customer:");
+		customer = get_in("Select Customer (-1 to Cancel)");
+		if (customer == -1) break;
 		try{
 			order = store->new_order(customer);
 			break;
@@ -204,6 +205,7 @@ void Mainwin::on_insert_order_click(){
 		}
 	}
 	while(true){
+		if (customer == -1) break;
 		on_view_desktop_click();
 		int desktop = get_in("Select desktop (-1 when done):");
 		if(desktop == -1) break;
@@ -213,7 +215,9 @@ void Mainwin::on_insert_order_click(){
 			Gtk::MessageDialog{*this, "#### INVALID OPTION ####", true}.run();
 		}
 	}
-	set_msg("++++ New Order Placed ++++");
+	if (customer != -1){
+		set_msg("++++ New Order Placed ++++");
+	}
 	on_view_order_click();
 }
 
@@ -237,18 +241,38 @@ std::string Mainwin::get_string(std::string prompt){
 }
 
 double Mainwin::get_double(std::string prompt){
+	double result;
 	EntryDialog edialog{*this, prompt, true};
     edialog.set_text("Type number here...");
-    edialog.run();
-    double result = std::stod(edialog.get_text(), nullptr);
+    while(true)
+    {
+    	try{
+			edialog.run();
+    		result = std::stod(edialog.get_text(), nullptr);
+    		break;
+		} 
+		catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "#### INVALID INPUT ####", true}.run();
+		}
+	}
 	return result;
 }
 
 int Mainwin::get_in(std::string prompt){
+	int result;
 	EntryDialog edialog{*this, prompt, true};
     edialog.set_text("Type number here...");
-    edialog.run();
-    int result = std::stoi(edialog.get_text());
+    while(true)
+    {
+    	try{
+			edialog.run();
+    		result = std::stoi(edialog.get_text());
+    		break;
+		} 
+		catch(std::exception& e) {
+			Gtk::MessageDialog{*this, "#### INVALID INPUT ####", true}.run();
+		}
+	}
 	return result;
 }
 
