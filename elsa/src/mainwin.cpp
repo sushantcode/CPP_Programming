@@ -1,6 +1,6 @@
 #include "mainwin.h"
 
-Mainwin::Mainwin() {
+Mainwin::Mainwin(){
 	set_default_size(800, 500);
 	set_title("Exceptional Laptops and Supercomputer Assessories");
 	Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
@@ -116,20 +116,92 @@ Mainwin::Mainwin() {
     //making the box and everything visible to each other
     vbox->show_all();
     
-    store = new Store();
-    
     filename = "untitled.elsa";
+    
+    on_new_store_click();
 }
 
 Mainwin::~Mainwin(){ }
 
-void Mainwin::on_new_store_click(){ }
+void Mainwin::on_new_store_click(){
+	store = new Store();
+}
 
-void Mainwin::on_save_click(){ }
+void Mainwin::on_save_click(){
+	try{
+		std::ofstream ofs{filename};
+		store->save(ofs);
+	} catch (std::exception& e) {
+		Gtk::MessageDialog{*this, "Unable to save game"}.run();
+	}
+}
 
-void Mainwin::on_save_as_click(){ }
+void Mainwin::on_save_as_click(){
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+	dialog.set_transient_for(*this);
+	
+	auto filter_store = Gtk::FileFilter::create();
+    filter_store->set_name("ELSA files");
+    filter_store->add_pattern("*.elsa");
+    dialog.add_filter(filter_store);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+    
+    dialog.set_filename(filename);
 
-void Mainwin::on_open_click(){ }
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+    	try {
+            std::ofstream ofs{dialog.get_filename()};
+            store->save(ofs);
+            if(!ofs) throw std::runtime_error{"Error writing file"};
+        } catch (std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to save game"}.run();
+        }
+    }
+}
+
+void Mainwin::on_open_click(){
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+	dialog.set_transient_for(*this);
+	
+	auto filter_store = Gtk::FileFilter::create();
+    filter_store->set_name("ELSA files");
+    filter_store->add_pattern("*.elsa");
+    dialog.add_filter(filter_store);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+    
+    dialog.set_filename(filename);
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+    	try {
+            delete store;
+            std::ifstream ifs{dialog.get_filename()};
+            store = new Store{ifs};
+            if(!ifs) throw std::runtime_error{"File contents bad"};
+        } catch (std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to open game"}.run();
+        }
+    }
+}
 
 void Mainwin::on_quit_click() {
 	close();

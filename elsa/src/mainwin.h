@@ -3,6 +3,8 @@
 
 #include <gtkmm.h>
 #include <sstream>
+#include <iostream>
+#include <fstream>
 #include "store.h"
 #include "entrydialog.h"
 

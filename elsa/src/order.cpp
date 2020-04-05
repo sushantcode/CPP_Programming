@@ -19,7 +19,7 @@ double Order::price() const{
 }
 
 std::ostream& operator<<(std::ostream& ost, const Order& order){
-	ost << "Customer: " << order._customer << "\n";
+	ost << "Customer: " << *(order._customer) << "\n";
 	for (auto p : order._products){
 		ost << *p;
 	}
