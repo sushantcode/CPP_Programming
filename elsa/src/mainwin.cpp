@@ -42,6 +42,11 @@ Mainwin::Mainwin(){
 	Gtk::Menu *viewmenu = Gtk::manage(new Gtk::Menu());
 	menuitem_view->set_submenu(*viewmenu);
 
+   	//adding view customer to View menu
+	Gtk::MenuItem *menuitem_view_customer = Gtk::manage(new Gtk::MenuItem("_Customers", true));
+   	menuitem_view_customer->signal_activate().connect([this] {this->on_view_customer_click();});
+    viewmenu->append(*menuitem_view_customer);
+   	
    	//adding view peipheral to View menu
 	Gtk::MenuItem *menuitem_view_peripheral = Gtk::manage(new Gtk::MenuItem("_Peripherals", true));
     menuitem_view_peripheral->signal_activate().connect([this] {this->on_view_peripheral_click();});
@@ -57,16 +62,16 @@ Mainwin::Mainwin(){
    	menuitem_view_order->signal_activate().connect([this] {this->on_view_order_click();});
     viewmenu->append(*menuitem_view_order);
     
-    //adding view customer to View menu
-	Gtk::MenuItem *menuitem_view_customer = Gtk::manage(new Gtk::MenuItem("_Customers", true));
-   	menuitem_view_customer->signal_activate().connect([this] {this->on_view_customer_click();});
-    viewmenu->append(*menuitem_view_customer);
-    
    	//adding Insert menubar
 	Gtk::MenuItem *menuitem_insert = Gtk::manage(new Gtk::MenuItem("_Insert", true));
 	menubar->append(*menuitem_insert);
 	Gtk::Menu *insertmenu = Gtk::manage(new Gtk::Menu());
 	menuitem_insert->set_submenu(*insertmenu);
+	
+	//adding insert customer to Insert menu
+	Gtk::MenuItem *menuitem_insert_customer = Gtk::manage(new Gtk::MenuItem("_Customers", true));
+   	menuitem_insert_customer->signal_activate().connect([this] {this->on_insert_customer_click();});
+    insertmenu->append(*menuitem_insert_customer);
 	
 	//adding insert peipheral to Insert menu
 	Gtk::MenuItem *menuitem_insert_peripheral = Gtk::manage(new Gtk::MenuItem("_Peripherals", true));
@@ -82,17 +87,17 @@ Mainwin::Mainwin(){
 	Gtk::MenuItem *menuitem_insert_order = Gtk::manage(new Gtk::MenuItem("_Orders", true));
    	menuitem_insert_order->signal_activate().connect([this] {this->on_insert_order_click();});
     insertmenu->append(*menuitem_insert_order);
-    
-    //adding insert customer to Insert menu
-	Gtk::MenuItem *menuitem_insert_customer = Gtk::manage(new Gtk::MenuItem("_Customers", true));
-   	menuitem_insert_customer->signal_activate().connect([this] {this->on_insert_customer_click();});
-    insertmenu->append(*menuitem_insert_customer);
 	
 	//adding a Help menu and add to the menu bar
     Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
     menubar->append(*menuitem_help);
     Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
     menuitem_help->set_submenu(*helpmenu);
+    
+    // Append Easter Egg to the Help menu
+    Gtk::MenuItem *menuitem_easter = Gtk::manage(new Gtk::MenuItem("_Easter Egg", true));
+    menuitem_easter->signal_activate().connect([this] {this->on_easter_egg_click();});
+    helpmenu->append(*menuitem_easter);
     
     //adding About to the Help menu
     Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
@@ -330,7 +335,49 @@ void Mainwin::on_insert_customer_click(){
 	}
 }
 
-void Mainwin::on_easter_egg_click(){ }
+void Mainwin::on_easter_egg_click(){
+	Customer c{"Bugs Bunny", "817-ACA-RROT", "bugs@loony.tunes"};          store->add_customer(c);
+    c = Customer{"Elastigirl", "817-STR-ETCH", "helen@incredibles.movie"}; store->add_customer(c);
+    c = Customer{"Tuck and Roll", "817-UFI-RED2", "circus@bugs.life"};     store->add_customer(c);
+    c = Customer{"Tiana", "817-NOG-RIMM", "princess@lily.pad"};            store->add_customer(c);
+
+    Options o{"CPU: 2.6 GHz Xeon 6126T", 2423.47};         store->add_option(o);
+    o = Options{"CPU: 2.4 GHz Core i7-8565U", 388.0};      store->add_option(o);
+    o = Options{"CPU: 2.2 GHz AMD Opteron", 37.71};        store->add_option(o);
+    o = Options{"CPU: 300 MHz AM3351BZCEA30R ARM", 11.03}; store->add_option(o);
+    o = Options{"CPU: 240 MHz ColdFire MCF5", 17.33};      store->add_option(o);
+
+    o = Options{"2 GB RAM", 17.76};                        store->add_option(o);
+    o = Options{"4 GB RAM", 22.95};                        store->add_option(o);
+    o = Options{"8 GB RAM", 34.99};                        store->add_option(o);
+    o = Options{"16 GB RAM", 92.99};                       store->add_option(o);
+    o = Options{"32 GB RAM", 134.96};                      store->add_option(o);
+    o = Options{"64 GB RAM", 319.99};                      store->add_option(o);
+
+    o = Options{"0.5 TB SSD", 79.99};                      store->add_option(o);
+    o = Options{"1 TB SSD", 109.99};                       store->add_option(o);
+    o = Options{"2 TB SSD", 229.99};                       store->add_option(o);
+    o = Options{"4 TB SSD", 599.99};                       store->add_option(o);
+
+    o = Options{"1 TB PC Disk", 44.83};                    store->add_option(o);
+    o = Options{"2 TB Hybrid Disk", 59.99};                store->add_option(o);
+    o = Options{"4 TB Hybrid Disk", 93.98};                store->add_option(o);
+
+    int desktop = store->new_desktop();
+    store->add_option(0, desktop);
+    store->add_option(9, desktop);
+    store->add_option(14, desktop);
+
+    desktop = store->new_desktop();
+    store->add_option(1, desktop);
+    store->add_option(7, desktop);
+    store->add_option(17, desktop);
+
+    desktop = store->new_desktop();
+    store->add_option(5, desktop);
+    store->add_option(7, desktop);
+    store->add_option(15, desktop);
+}
 
 std::string Mainwin::get_string(std::string prompt){
 	EntryDialog edialog{*this, prompt, true};

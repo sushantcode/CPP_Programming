@@ -64,6 +64,19 @@ Order& Store::order(int index){
 	return orders.at(index);
 }
 
-Store::Store(std::istream& ist){ }
+Store::Store(std::istream& ist){
+	std::string csize;
+	std::getline(ist, csize);
+	for (int i = 0; i < std::stoi(csize); i++){
+		customers.push_back(Customer(ist));
+		if(!ist) throw std::runtime_error{"Error opening customer file"};
+	}
+	
+}
 
-void Store::save(std::ostream& ost){ }
+void Store::save(std::ostream& ost){
+	ost << customers.size() << std::endl;
+	for (auto c : customers){
+		c.save(ost);
+	}
+}
