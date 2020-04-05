@@ -12,6 +12,8 @@ class Options{
 		double cost();
 		std::string to_string() const;
 		friend std::ostream& operator<<(std::ostream& ost, const Options& option);
+		Options(std::istream& ist);
+		void save(std::ostream& ost);
 		
 	private:
 		std::string _name;

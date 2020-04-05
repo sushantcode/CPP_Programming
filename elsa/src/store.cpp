@@ -1,5 +1,7 @@
 #include "store.h"
 
+Store::Store(){ }
+
 void Store::add_customer(Customer& customer){
 	customers.push_back(customer);
 }
@@ -61,3 +63,7 @@ int Store::num_orders(){
 Order& Store::order(int index){
 	return orders.at(index);
 }
+
+Store::Store(std::istream& ist){ }
+
+void Store::save(std::ostream& ost){ }

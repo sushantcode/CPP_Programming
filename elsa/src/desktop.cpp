@@ -1,5 +1,7 @@
 #include "desktop.h"
 
+Desktop::Desktop(){ }
+
 void Desktop::add_option(Options& option){
 	options.push_back(new Options(option));
 }
@@ -20,3 +22,7 @@ std::ostream& operator<<(std::ostream& ost, const Desktop& desktop){
 	ost << "<b> <span size = '10000'>This Desktop includes: </span></b> \n" << output;
 	return ost;
 }
+
+Desktop::Desktop(std::istream& ist) { }
+
+void Desktop::save(std::ostream& ost) { }

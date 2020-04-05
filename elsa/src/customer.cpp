@@ -7,3 +7,7 @@ std::ostream& operator<<(std::ostream& ost, const Customer& cust){
 	ost << cust._name << " (" << cust._phone << ", " << cust._email << ")";
 	return ost;
 }
+
+Customer::Customer(std::istream& ist){ }
+
+void Customer::save(std::ostream& ost){ }

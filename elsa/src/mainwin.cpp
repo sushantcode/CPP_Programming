@@ -16,6 +16,21 @@ Mainwin::Mainwin() {
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 	
+	//adding Open to the File menu
+    Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
+    menuitem_open->signal_activate().connect([this] {this->on_open_click();});
+    filemenu->append(*menuitem_open);
+	
+	//adding Save to the File menu
+    Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    menuitem_save->signal_activate().connect([this] {this->on_save_click();});
+    filemenu->append(*menuitem_save);
+    
+    //adding Save As to the File menu
+    Gtk::MenuItem *menuitem_save_as = Gtk::manage(new Gtk::MenuItem("_Save As", true));
+    menuitem_save_as->signal_activate().connect([this] {this->on_save_as_click();});
+    filemenu->append(*menuitem_save_as);
+    
 	//adding Quit to the File menu
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
@@ -102,9 +117,19 @@ Mainwin::Mainwin() {
     vbox->show_all();
     
     store = new Store();
+    
+    filename = "untitled.elsa";
 }
 
 Mainwin::~Mainwin(){ }
+
+void Mainwin::on_new_store_click(){ }
+
+void Mainwin::on_save_click(){ }
+
+void Mainwin::on_save_as_click(){ }
+
+void Mainwin::on_open_click(){ }
 
 void Mainwin::on_quit_click() {
 	close();
@@ -232,6 +257,8 @@ void Mainwin::on_insert_customer_click(){
 		on_view_customer_click();
 	}
 }
+
+void Mainwin::on_easter_egg_click(){ }
 
 std::string Mainwin::get_string(std::string prompt){
 	EntryDialog edialog{*this, prompt, true};

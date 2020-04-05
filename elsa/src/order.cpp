@@ -1,7 +1,8 @@
 #include "order.h"
 
-Order::Order(Customer& customer)
-	: _customer{customer}{ }
+Order::Order(Customer& customer){
+	_customer = new Customer(customer);
+ }
 
 Order::~Order(){ }
 
@@ -25,3 +26,7 @@ std::ostream& operator<<(std::ostream& ost, const Order& order){
 	ost << "\nTotal price: " << std::fixed << std::setprecision(2) << order.price();
 	return ost;
 }
+
+Order::Order(std::istream& ist){ }
+
+void Order::save(std::ostream& ost){ }
