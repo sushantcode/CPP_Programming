@@ -72,11 +72,35 @@ Store::Store(std::istream& ist){
 		if(!ist) throw std::runtime_error{"Error opening customer file"};
 	}
 	
+	std::string osize;
+	std::getline(ist, osize);
+	for (int i = 0; i < std::stoi(osize); i++){
+		options.push_back(new Options(ist));
+		if(!ist) throw std::runtime_error{"Error opening option file"};
+	}
+	
+	std::string dsize;
+	std::getline(ist, dsize);
+	for (int i = 0; i < std::stoi(dsize); i++){
+		desktops.push_back(Desktop(ist));
+		if(!ist) throw std::runtime_error{"Error opening desktop file"};
+	}
+	
 }
 
 void Store::save(std::ostream& ost){
 	ost << customers.size() << std::endl;
 	for (auto c : customers){
 		c.save(ost);
+	}
+	
+	ost << options.size() << std::endl;
+	for (auto o : options){
+		o->save(ost);
+	}
+	
+	ost << desktops.size() << std::endl;
+	for (auto d : desktops){
+		d.save(ost);
 	}
 }

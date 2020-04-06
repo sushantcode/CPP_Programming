@@ -23,6 +23,18 @@ std::ostream& operator<<(std::ostream& ost, const Desktop& desktop){
 	return ost;
 }
 
-Desktop::Desktop(std::istream& ist) { }
+Desktop::Desktop(std::istream& ist) {
+	std::string osize;
+	std::getline(ist, osize);
+	for (int i = 0; i < std::stoi(osize); i++){
+		options.push_back(new Options(ist));
+		if(!ist) throw std::runtime_error{"Error opening option file"};
+	}
+}
 
-void Desktop::save(std::ostream& ost) { }
+void Desktop::save(std::ostream& ost) {
+	ost << options.size() << std::endl;
+	for (auto o : options){
+		o->save(ost);
+	}
+}

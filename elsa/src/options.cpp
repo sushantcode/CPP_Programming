@@ -22,6 +22,14 @@ std::ostream& operator<<(std::ostream& ost, const Options& option){
 	return ost;
 }
 
-Options::Options(std::istream& ist){ }
+Options::Options(std::istream& ist){
+	std::getline(ist, _name);
+	std::string cost;
+	std::getline(ist, cost);
+	_cost = std::stod(cost);
+}
 
-void Options::save(std::ostream& ost){ }
+void Options::save(std::ostream& ost){
+	ost << _name << std::endl;
+	ost << _cost << std::endl;
+}
