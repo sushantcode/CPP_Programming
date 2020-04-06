@@ -86,6 +86,12 @@ Store::Store(std::istream& ist){
 		if(!ist) throw std::runtime_error{"Error opening desktop file"};
 	}
 	
+	std::string ordsize;
+	std::getline(ist, ordsize);
+	for (int i = 0; i < std::stoi(ordsize); i++){
+		orders.push_back(Order(ist));
+		if(!ist) throw std::runtime_error{"Error opening order file"};
+	}
 }
 
 void Store::save(std::ostream& ost){
@@ -102,5 +108,10 @@ void Store::save(std::ostream& ost){
 	ost << desktops.size() << std::endl;
 	for (auto d : desktops){
 		d.save(ost);
+	}
+	
+	ost << orders.size() << std::endl;
+	for (auto ord : orders){
+		ord.save(ost);
 	}
 }

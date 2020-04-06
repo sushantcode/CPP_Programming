@@ -27,6 +27,20 @@ std::ostream& operator<<(std::ostream& ost, const Order& order){
 	return ost;
 }
 
-Order::Order(std::istream& ist){ }
+Order::Order(std::istream& ist){
+	_customer = new Customer(ist);
+	std::string psize;
+	std::getline(ist, psize);
+	for (int i = 0; i < std::stoi(psize); i++){
+		_products.push_back(new Desktop(ist));
+		if(!ist) throw std::runtime_error{"Error opening option file"};
+	}
+}
 
-void Order::save(std::ostream& ost){ }
+void Order::save(std::ostream& ost){
+	_customer->save(ost);
+	ost << _products.size() << std::endl;
+	for (auto p : _products){
+		p->save(ost);
+	}
+}
