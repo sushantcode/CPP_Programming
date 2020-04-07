@@ -65,33 +65,47 @@ Order& Store::order(int index){
 }
 
 Store::Store(std::istream& ist){
+
 	std::string csize;
 	std::getline(ist, csize);
+	try{
 	for (int i = 0; i < std::stoi(csize); i++){
+		try{
 		customers.push_back(Customer(ist));
-		if(!ist) throw std::runtime_error{"Error opening customer file"};
+		}catch(std::exception& e){}
 	}
+	}catch(std::exception& e){}
 	
 	std::string osize;
 	std::getline(ist, osize);
+	try{
 	for (int i = 0; i < std::stoi(osize); i++){
+		try{
 		options.push_back(new Options(ist));
-		if(!ist) throw std::runtime_error{"Error opening option file"};
+		}catch(std::exception& e){}
 	}
+	}catch(std::exception& e){}
 	
 	std::string dsize;
 	std::getline(ist, dsize);
+	try{
 	for (int i = 0; i < std::stoi(dsize); i++){
+		try{
 		desktops.push_back(Desktop(ist));
-		if(!ist) throw std::runtime_error{"Error opening desktop file"};
+		}catch(std::exception& e){}
 	}
+	}catch(std::exception& e){}
 	
 	std::string ordsize;
 	std::getline(ist, ordsize);
+	try{
 	for (int i = 0; i < std::stoi(ordsize); i++){
+		try{
 		orders.push_back(Order(ist));
-		if(!ist) throw std::runtime_error{"Error opening order file"};
+		}catch(std::exception& e){}
 	}
+	}catch(std::exception& e){}
+
 }
 
 void Store::save(std::ostream& ost){

@@ -23,10 +23,13 @@ std::ostream& operator<<(std::ostream& ost, const Options& option){
 }
 
 Options::Options(std::istream& ist){
+
 	std::getline(ist, _name);
 	std::string cost;
 	std::getline(ist, cost);
+	try{
 	_cost = std::stod(cost);
+	}catch(std::exception& e){}
 }
 
 void Options::save(std::ostream& ost){

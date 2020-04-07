@@ -21,6 +21,11 @@ Mainwin::Mainwin(){
     menuitem_open->signal_activate().connect([this] {this->on_open_click();});
     filemenu->append(*menuitem_open);
 	
+	//adding Open to the File menu
+    Gtk::MenuItem *menuitem_new = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_new->signal_activate().connect([this] {this->on_new_store_click();});
+    filemenu->append(*menuitem_new);
+    
 	//adding Save to the File menu
     Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
@@ -108,6 +113,7 @@ Mainwin::Mainwin(){
     data = Gtk::manage(new Gtk::Label());
     data->set_hexpand(true);
     data->set_vexpand(true);
+    data->set_markup("<b> <span size = '20000'>Welcome to ELSA for your computer needs!!!</span></b>");
     data->set_halign(Gtk::ALIGN_START);
     data->set_valign(Gtk::ALIGN_START);
     vbox->add(*data);
@@ -117,7 +123,7 @@ Mainwin::Mainwin(){
     msg = Gtk::manage(new Gtk::Label());
     msg->set_hexpand(true);
     vbox->pack_start(*msg, Gtk::PACK_SHRINK, 0);
-    
+
     //making the box and everything visible to each other
     vbox->show_all();
     
@@ -137,12 +143,12 @@ void Mainwin::on_save_click(){
 		std::ofstream ofs{filename};
 		store->save(ofs);
 	} catch (std::exception& e) {
-		Gtk::MessageDialog{*this, "Unable to save game"}.run();
+		Gtk::MessageDialog{*this, "Unable to save Elsa"}.run();
 	}
 }
 
 void Mainwin::on_save_as_click(){
-	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+	Gtk::FileChooserDialog dialog("Please choose a file", Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
 	dialog.set_transient_for(*this);
 	
 	auto filter_store = Gtk::FileFilter::create();
@@ -169,7 +175,7 @@ void Mainwin::on_save_as_click(){
             store->save(ofs);
             if(!ofs) throw std::runtime_error{"Error writing file"};
         } catch (std::exception& e) {
-            Gtk::MessageDialog{*this, "Unable to save game"}.run();
+            Gtk::MessageDialog{*this, "Unable to save Elsa"}.run();
         }
     }
 }
@@ -203,7 +209,8 @@ void Mainwin::on_open_click(){
             store = new Store{ifs};
             if(!ifs) throw std::runtime_error{"File contents bad"};
         } catch (std::exception& e) {
-            Gtk::MessageDialog{*this, "Unable to open game"}.run();
+            Gtk::MessageDialog{*this, "Unable to open the file!!!"}.run();
+            on_new_store_click();
         }
     }
 }
