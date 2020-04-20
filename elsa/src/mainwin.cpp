@@ -331,15 +331,48 @@ void Mainwin::on_insert_order_click(){
 }
 
 void Mainwin::on_insert_customer_click(){
-	std::string name = get_string("Customer name?");
-	if(name.size()) {
-		std::string phone = get_string("Customer phone (xxx-xxx-xxxx)?");
-		std::string email = get_string("Customer email (xxx@domain.com)?");
-		Customer customer{name, phone, email};
-		store->add_customer(customer);
-		set_msg("Added customer " + name);
-		on_view_customer_click();
+	Gtk::Dialog dialog{"Enter Customer's Detail:", *this};
+	Gtk::Grid grid;
+	Gtk::Label l_name{"Name"};
+	Gtk::Entry e_name;
+	grid.attach(l_name, 0, 0, 1, 1);
+	grid.attach(e_name, 1, 1, 2, 1);
+	
+	Gtk::Label l_phone{"Phone"};
+	Gtk::Entry e_phone;
+	grid.attach(l_phone, 0, 1, 1, 1);
+	grid.attach(e_phone, 1, 2, 2, 1);
+	
+	Gtk::Label l_email{"Email"};
+	Gtk::Entry e_email;
+	grid.attach(l_email, 0, 2, 1, 1);
+	grid.attach(e_email, 1, 3, 2, 1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+	
+	while (dialog.run() == Gtk::RESPONSE_OK){
+		if (e_name.get_text().size() == 0){
+			e_name.set_text("#required#");
+			continue;
+		}
+		if (e_phone.get_text().size() == 0){
+			e_phone.set_text("#required#");
+			continue;
+		}
+		if (e_email.get_text().size() == 0){
+			e_email.set_text("#required#");
+			continue;
+		}
 	}
+	Customer customer{e_name.get_text(), e_phone.get_text(), e_email.get_text()};
+	store->add_customer(customer);
+	set_msg("Added customer " + e_name.get_text());
+	on_view_customer_click();
 }
 
 void Mainwin::on_easter_egg_click(){
