@@ -336,17 +336,17 @@ void Mainwin::on_insert_customer_click(){
 	Gtk::Label l_name{"Name"};
 	Gtk::Entry e_name;
 	grid.attach(l_name, 0, 0, 1, 1);
-	grid.attach(e_name, 1, 1, 2, 1);
+	grid.attach(e_name, 1, 0, 2, 1);
 	
 	Gtk::Label l_phone{"Phone"};
 	Gtk::Entry e_phone;
 	grid.attach(l_phone, 0, 1, 1, 1);
-	grid.attach(e_phone, 1, 2, 2, 1);
+	grid.attach(e_phone, 1, 1, 2, 1);
 	
 	Gtk::Label l_email{"Email"};
 	Gtk::Entry e_email;
 	grid.attach(l_email, 0, 2, 1, 1);
-	grid.attach(e_email, 1, 3, 2, 1);
+	grid.attach(e_email, 1, 2, 2, 1);
 	
 	dialog.get_content_area()->add(grid);
 	
@@ -368,6 +368,7 @@ void Mainwin::on_insert_customer_click(){
 			e_email.set_text("#required#");
 			continue;
 		}
+		break;
 	}
 	Customer customer{e_name.get_text(), e_phone.get_text(), e_email.get_text()};
 	store->add_customer(customer);
