@@ -11,9 +11,10 @@ class Options{
 		~Options();
 		double cost();
 		virtual std::string to_string() const;
+		virtual std::ostream& to_print(std::ostream& ost) const;
 		friend std::ostream& operator<<(std::ostream& ost, const Options& option);
 		Options(std::istream& ist);
-		void save(std::ostream& ost);
+		virtual void save(std::ostream& ost);
 		
 	protected:
 		std::string _name;

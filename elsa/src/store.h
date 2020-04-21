@@ -6,6 +6,7 @@
 #include "options.h"
 #include "desktop.h"
 #include "order.h"
+#include "ram.h"
 
 class Store{
 	public:

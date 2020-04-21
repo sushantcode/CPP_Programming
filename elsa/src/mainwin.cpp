@@ -81,16 +81,15 @@ Mainwin::Mainwin(){
 	//adding insert peipheral to Insert menu
 	Gtk::MenuItem *menuitem_insert_peripheral = Gtk::manage(new Gtk::MenuItem("_Peripherals", true));
 	Gtk::Menu *insertperipheral = Gtk::manage(new Gtk::Menu);
-    menuitem_insert_peripheral->signal_activate().connect([this] {this->on_insert_peripheral_click();});
     insertmenu->append(*menuitem_insert_peripheral);
     menuitem_insert_peripheral->set_submenu(*insertperipheral);
     
-    //adding insert Ram to Insert menu
+    //adding insert Ram to Insert peripheral menu
 	Gtk::MenuItem *menuitem_insert_ram = Gtk::manage(new Gtk::MenuItem("_Ram", true));
     menuitem_insert_ram->signal_activate().connect([this] {this->on_insert_ram_click();});
     insertperipheral->append(*menuitem_insert_ram);
 
-	//adding insert peipheral to Insert menu
+	//adding insert peipheral to Insert peripheral menu
 	Gtk::MenuItem *menuitem_insert_other = Gtk::manage(new Gtk::MenuItem("_Others", true));
     menuitem_insert_other->signal_activate().connect([this] {this->on_insert_other_click();});
     insertperipheral->append(*menuitem_insert_other);
@@ -252,21 +251,21 @@ void Mainwin::on_view_peripheral_click(){
 	std::ostringstream optList;
 	for(int i=0; i<store->num_options(); ++i) 
 		optList << i << ") " << store->option(i) << "\n";
-	set_data("<b> <span size = '20000'>Peripherals</span></b> \n" + optList.str());
+	set_data("<b> <span size = '20000'>Peripherals</span></b> \n\n" + optList.str());
 }
 
 void Mainwin::on_view_desktop_click(){
 	std::ostringstream DeskList;
 	for(int i=0; i<store->num_desktops(); ++i) 
 		DeskList << "<b> <span size = '10000'>" << i << ") " << "</span></b>" << store->desktop(i) << "\n";
-	set_data("<b> <span size = '20000'>Desktop</span></b> \n" + DeskList.str());
+	set_data("<b> <span size = '20000'>Desktop</span></b> \n\n" + DeskList.str());
 }
 
 void Mainwin::on_view_order_click(){
 	std::ostringstream orderList;
 	for(int i=0; i<store->num_orders(); ++i) 
 		orderList << i << ") " << store->order(i) << "\n";
-	set_data("<b> <span size = '20000'>Order</span></b> \n" + orderList.str());
+	set_data("<b> <span size = '20000'>Order</span></b> \n\n" + orderList.str());
 }
 
 void Mainwin::on_view_customer_click(){
@@ -275,7 +274,7 @@ void Mainwin::on_view_customer_click(){
 	{
 		custList << i << ") " << store->customer(i) << "\n";
 	}
-	set_data("<b> <span size = '20000'>Customers</span></b> \n" + custList.str());	
+	set_data("<b> <span size = '20000'>Customers</span></b> \n\n" + custList.str());	
 }
 
 void Mainwin::on_insert_ram_click(){
@@ -291,10 +290,10 @@ void Mainwin::on_insert_ram_click(){
 	grid.attach(l_cost, 0, 1, 1, 1);
 	grid.attach(e_cost, 1, 1, 2, 1);
 	
-	Gtk::Label l_email{"Size"};
-	Gtk::Entry e_email;
-	grid.attach(l_email, 0, 2, 1, 1);
-	grid.attach(e_email, 1, 2, 2, 1);
+	Gtk::Label l_size{"Size"};
+	Gtk::Entry e_size;
+	grid.attach(l_size, 0, 2, 1, 1);
+	grid.attach(e_size, 1, 2, 2, 1);
 	
 	dialog.get_content_area()->add(grid);
 	
@@ -303,40 +302,80 @@ void Mainwin::on_insert_ram_click(){
     
     dialog.show_all();
 	
+	double cost;
+	int size;
 	while (dialog.run() == Gtk::RESPONSE_OK){
 		if (e_name.get_text().size() == 0){
 			e_name.set_text("#required#");
 			continue;
 		}
-		if (e_phone.get_text().size() == 0){
-			e_phone.set_text("#required#");
-			continue;
+		try{
+			if (e_cost.get_text().size() == 0){
+				e_cost.set_text("#required#");
+				continue;
+			}
+			cost = std::stod(e_cost.get_text(), nullptr);
+		}catch(std::exception& e){
+				e_cost.set_text("#invalid input#");
+				continue;
 		}
-		if (e_email.get_text().size() == 0){
-			e_email.set_text("#required#");
-			continue;
+		try{
+			if (e_size.get_text().size() == 0){
+				e_size.set_text("#required#");
+				continue;
+			}
+			size = std::stoi(e_size.get_text());
+		}catch(std::exception& e){
+				e_size.set_text("#invalid input#");
+				continue;
 		}
 		break;
 	}
-	Customer customer{e_name.get_text(), e_phone.get_text(), e_email.get_text()};
-	store->add_customer(customer);
-	set_msg("Added customer " + e_name.get_text());
-	on_view_customer_click();
-
-
-
-	std::string name = get_string("Name of new peripheral?");
-	double cost = get_double("Cost?");
-	Options option{name, cost};
-	store->add_option(option);
+	Ram ram{e_name.get_text(), cost, size};
+	store->add_option(ram);
 	set_msg("Added new peripheral");
 	on_view_peripheral_click();
 }
 
 void Mainwin::on_insert_other_click(){
-	std::string name = get_string("Name of new peripheral?");
-	double cost = get_double("Cost?");
-	Options option{name, cost};
+	Gtk::Dialog dialog{"Add Other Peripheral", *this};
+	Gtk::Grid grid;
+	Gtk::Label l_name{"Name"};
+	Gtk::Entry e_name;
+	grid.attach(l_name, 0, 0, 1, 1);
+	grid.attach(e_name, 1, 0, 2, 1);
+	
+	Gtk::Label l_cost{"Cost"};
+	Gtk::Entry e_cost;
+	grid.attach(l_cost, 0, 1, 1, 1);
+	grid.attach(e_cost, 1, 1, 2, 1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+	
+	double cost;
+	while (dialog.run() == Gtk::RESPONSE_OK){
+		if (e_name.get_text().size() == 0){
+			e_name.set_text("#required#");
+			continue;
+		}
+		try{
+			if (e_cost.get_text().size() == 0){
+				e_cost.set_text("#required#");
+				continue;
+			}
+			cost = std::stod(e_cost.get_text(), nullptr);
+		}catch(std::exception& e){
+				e_cost.set_text("#invalid input#");
+				continue;
+		}
+		break;
+	}
+	Options option{e_name.get_text(), cost};
 	store->add_option(option);
 	set_msg("Added new peripheral");
 	on_view_peripheral_click();

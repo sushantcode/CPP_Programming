@@ -6,8 +6,8 @@ all: mainwin
 debug: CXXFLAGS += -g
 debug: mainwin
 
-mainwin: main.o customer.o store.o options.o desktop.o order.o mainwin.o entrydialog.o
-	$(CXX) $(CXXFLAGS) main.o customer.o store.o options.o desktop.o order.o mainwin.o entrydialog.o $(GTKFLAGS) -o store
+mainwin: main.o customer.o store.o options.o desktop.o order.o mainwin.o entrydialog.o ram.o
+	$(CXX) $(CXXFLAGS) main.o customer.o store.o options.o desktop.o order.o mainwin.o entrydialog.o ram.o $(GTKFLAGS) -o store
 
 main.o: main.cpp *.h
 	$(CXX) $(CXXFLAGS) -c main.cpp $(GTKFLAGS) -o main.o
@@ -32,6 +32,9 @@ mainwin.o: mainwin.cpp *.h
 	
 entrydialog.o: entrydialog.cpp *.h
 	$(CXX) $(CXXFLAGS) -c entrydialog.cpp $(GTKFLAGS) -o entrydialog.o
+
+ram.o: ram.cpp *.h
+	$(CXX) $(CXXFLAGS) -c ram.cpp $(GTKFLAGS) -o ram.o	
 			
 clean:
 	rm -f *.o *.gch a.out store
