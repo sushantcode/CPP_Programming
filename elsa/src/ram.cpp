@@ -8,12 +8,7 @@ Ram::~Ram() { }
 std::string Ram::to_string() const{
 	std::ostringstream costStream;
 	costStream << std::fixed << std::setprecision(2) << _cost;
-	return _name + std::to_string(_gb) + "gb" + "($" + costStream.str() + ")";
-}
-
-std::ostream& Ram::to_print(std::ostream& ost) const {
-	ost << to_string();
-	return ost;
+	return _name + " " + std::to_string(_gb) + " gb " + "($" + costStream.str() + ")";
 }
 
 Ram::Ram(std::istream& ist)
@@ -26,7 +21,6 @@ Ram::Ram(std::istream& ist)
 }
 
 void Ram::save(std::ostream& ost){
-	ost << _name << std::endl;
-	ost << _cost << std::endl;
+	Options::save(ost);
 	ost << _gb << std::endl;
 }

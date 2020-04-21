@@ -17,13 +17,9 @@ std::string Options::to_string() const{
 	return _name + " ($" + costStream.str() + ")";
 }
 
-std::ostream& Options::to_print(std::ostream& ost) const{
-	ost << to_string();
-	return ost;
-}
-
 std::ostream& operator<<(std::ostream& ost, const Options& option){
-	return option.to_print(ost);
+	ost << option.to_string();
+	return ost;
 }
 
 Options::Options(std::istream& ist){

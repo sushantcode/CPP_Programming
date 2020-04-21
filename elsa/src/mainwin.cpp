@@ -314,7 +314,7 @@ void Mainwin::on_insert_ram_click(){
 				e_cost.set_text("#required#");
 				continue;
 			}
-			cost = std::stod(e_cost.get_text(), nullptr);
+			cost = std::stod(e_cost.get_text());
 		}catch(std::exception& e){
 				e_cost.set_text("#invalid input#");
 				continue;
@@ -331,8 +331,8 @@ void Mainwin::on_insert_ram_click(){
 		}
 		break;
 	}
-	Ram ram{e_name.get_text(), cost, size};
-	store->add_option(ram);
+	Options* ram = new Ram(e_name.get_text(), cost, size);
+	store->add_option(*ram);
 	set_msg("Added new peripheral");
 	on_view_peripheral_click();
 }
@@ -368,15 +368,15 @@ void Mainwin::on_insert_other_click(){
 				e_cost.set_text("#required#");
 				continue;
 			}
-			cost = std::stod(e_cost.get_text(), nullptr);
+			cost = std::stod(e_cost.get_text());
 		}catch(std::exception& e){
 				e_cost.set_text("#invalid input#");
 				continue;
 		}
 		break;
 	}
-	Options option{e_name.get_text(), cost};
-	store->add_option(option);
+	Options* option = new Options(e_name.get_text(), cost);
+	store->add_option(*option);
 	set_msg("Added new peripheral");
 	on_view_peripheral_click();
 }

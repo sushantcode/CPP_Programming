@@ -6,12 +6,11 @@
 #include <iomanip>
 #include "options.h"
 
-class Ram : public Options{
+class Ram : public Options {
 	public:
 		Ram(std::string name, double cost, int gb);
 		~Ram();
 		std::string to_string() const override;
-		virtual std::ostream& to_print(std::ostream& ost) const;
 		Ram(std::istream& ist);
 		void save(std::ostream& ost) override;
 		

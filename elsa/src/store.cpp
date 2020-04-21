@@ -15,7 +15,7 @@ Customer& Store::customer(int index){
 }
 
 void Store::add_option(Options& option){
-	options.push_back(new Options(option));
+	options.push_back(&option);
 }
 
 int Store::num_options(){
@@ -23,7 +23,7 @@ int Store::num_options(){
 }
 
 Options& Store::option(int index){
-	return *options.at(index);
+	return *(options.at(index));
 }
 
 int Store::new_desktop(){
@@ -81,7 +81,7 @@ Store::Store(std::istream& ist){
 	try{
 	for (int i = 0; i < std::stoi(osize); i++){
 		try{
-		options.push_back(new Options(ist));
+		options.push_back(new Ram{ist});
 		}catch(std::exception& e){}
 	}
 	}catch(std::exception& e){}
