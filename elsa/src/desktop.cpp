@@ -3,7 +3,7 @@
 Desktop::Desktop(){ }
 
 void Desktop::add_option(Options& option){
-	options.push_back(&option);
+	options.push_back(new Options(option));
 }
 
 double Desktop::price() const{

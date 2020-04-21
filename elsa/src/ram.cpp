@@ -8,7 +8,7 @@ Ram::~Ram() { }
 std::string Ram::to_string() const{
 	std::ostringstream costStream;
 	costStream << std::fixed << std::setprecision(2) << _cost;
-	return _name + " " + std::to_string(_gb) + " gb " + "($" + costStream.str() + ")";
+	return "RAM: " + std::to_string(_gb) + " gb " + _name + " ($" + costStream.str() + ")";
 }
 
 Ram::Ram(std::istream& ist)

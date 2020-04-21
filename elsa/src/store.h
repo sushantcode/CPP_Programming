@@ -7,6 +7,8 @@
 #include "desktop.h"
 #include "order.h"
 #include "ram.h"
+#include "cpu.h"
+#include "disk.h"
 
 class Store{
 	public:

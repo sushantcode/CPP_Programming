@@ -88,6 +88,16 @@ Mainwin::Mainwin(){
 	Gtk::MenuItem *menuitem_insert_ram = Gtk::manage(new Gtk::MenuItem("_Ram", true));
     menuitem_insert_ram->signal_activate().connect([this] {this->on_insert_ram_click();});
     insertperipheral->append(*menuitem_insert_ram);
+    
+    //adding insert CPU to Insert peripheral menu
+	Gtk::MenuItem *menuitem_insert_cpu = Gtk::manage(new Gtk::MenuItem("_CPU", true));
+    menuitem_insert_cpu->signal_activate().connect([this] {this->on_insert_cpu_click();});
+    insertperipheral->append(*menuitem_insert_cpu);
+    
+    //adding insert Disk to Insert peripheral menu
+	Gtk::MenuItem *menuitem_insert_disk = Gtk::manage(new Gtk::MenuItem("_Disk", true));
+    menuitem_insert_disk->signal_activate().connect([this] {this->on_insert_disk_click();});
+    insertperipheral->append(*menuitem_insert_disk);
 
 	//adding insert peipheral to Insert peripheral menu
 	Gtk::MenuItem *menuitem_insert_other = Gtk::manage(new Gtk::MenuItem("_Others", true));
@@ -280,7 +290,7 @@ void Mainwin::on_view_customer_click(){
 void Mainwin::on_insert_ram_click(){
 	Gtk::Dialog dialog{"Add Ram as Peripheral", *this};
 	Gtk::Grid grid;
-	Gtk::Label l_name{"Name"};
+	Gtk::Label l_name{"Type"};
 	Gtk::Entry e_name;
 	grid.attach(l_name, 0, 0, 1, 1);
 	grid.attach(e_name, 1, 0, 2, 1);
@@ -333,6 +343,126 @@ void Mainwin::on_insert_ram_click(){
 	}
 	Options* ram = new Ram(e_name.get_text(), cost, size);
 	store->add_option(*ram);
+	set_msg("Added new peripheral");
+	on_view_peripheral_click();
+}
+
+void Mainwin::on_insert_cpu_click(){
+	Gtk::Dialog dialog{"Add CPU as Peripheral", *this};
+	Gtk::Grid grid;
+	Gtk::Label l_name{"Brand"};
+	Gtk::Entry e_name;
+	grid.attach(l_name, 0, 0, 1, 1);
+	grid.attach(e_name, 1, 0, 2, 1);
+	
+	Gtk::Label l_cost{"Cost"};
+	Gtk::Entry e_cost;
+	grid.attach(l_cost, 0, 1, 1, 1);
+	grid.attach(e_cost, 1, 1, 2, 1);
+	
+	Gtk::Label l_frequency{"Frequency"};
+	Gtk::Entry e_frequency;
+	grid.attach(l_frequency, 0, 2, 1, 1);
+	grid.attach(e_frequency, 1, 2, 2, 1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+	
+	double cost;
+	double frequency;
+	while (dialog.run() == Gtk::RESPONSE_OK){
+		if (e_name.get_text().size() == 0){
+			e_name.set_text("#required#");
+			continue;
+		}
+		try{
+			if (e_cost.get_text().size() == 0){
+				e_cost.set_text("#required#");
+				continue;
+			}
+			cost = std::stod(e_cost.get_text());
+		}catch(std::exception& e){
+				e_cost.set_text("#invalid input#");
+				continue;
+		}
+		try{
+			if (e_frequency.get_text().size() == 0){
+				e_frequency.set_text("#required#");
+				continue;
+			}
+			frequency = std::stod(e_frequency.get_text());
+		}catch(std::exception& e){
+				e_frequency.set_text("#invalid input#");
+				continue;
+		}
+		break;
+	}
+	Options* cpu = new CPU(e_name.get_text(), cost, frequency);
+	store->add_option(*cpu);
+	set_msg("Added new peripheral");
+	on_view_peripheral_click();
+}
+
+void Mainwin::on_insert_disk_click(){
+	Gtk::Dialog dialog{"Add DISK as Peripheral", *this};
+	Gtk::Grid grid;
+	Gtk::Label l_name{"Type"};
+	Gtk::Entry e_name;
+	grid.attach(l_name, 0, 0, 1, 1);
+	grid.attach(e_name, 1, 0, 2, 1);
+	
+	Gtk::Label l_cost{"Cost"};
+	Gtk::Entry e_cost;
+	grid.attach(l_cost, 0, 1, 1, 1);
+	grid.attach(e_cost, 1, 1, 2, 1);
+	
+	Gtk::Label l_size{"Size"};
+	Gtk::Entry e_size;
+	grid.attach(l_size, 0, 2, 1, 1);
+	grid.attach(e_size, 1, 2, 2, 1);
+	
+	dialog.get_content_area()->add(grid);
+	
+	dialog.add_button("Insert", Gtk::RESPONSE_OK);
+    dialog.add_button("Cancel", Gtk::RESPONSE_CANCEL);
+    
+    dialog.show_all();
+	
+	double cost;
+	int size;
+	while (dialog.run() == Gtk::RESPONSE_OK){
+		if (e_name.get_text().size() == 0){
+			e_name.set_text("#required#");
+			continue;
+		}
+		try{
+			if (e_cost.get_text().size() == 0){
+				e_cost.set_text("#required#");
+				continue;
+			}
+			cost = std::stod(e_cost.get_text());
+		}catch(std::exception& e){
+				e_cost.set_text("#invalid input#");
+				continue;
+		}
+		try{
+			if (e_size.get_text().size() == 0){
+				e_size.set_text("#required#");
+				continue;
+			}
+			size = std::stoi(e_size.get_text());
+		}catch(std::exception& e){
+				e_size.set_text("#invalid input#");
+				continue;
+		}
+		break;
+	}
+	Options* disk = new Disk(e_name.get_text(), cost, size);
+	store->add_option(*disk);
 	set_msg("Added new peripheral");
 	on_view_peripheral_click();
 }
@@ -488,27 +618,27 @@ void Mainwin::on_easter_egg_click(){
     c = Customer{"Tuck and Roll", "817-UFI-RED2", "circus@bugs.life"};     store->add_customer(c);
     c = Customer{"Tiana", "817-NOG-RIMM", "princess@lily.pad"};            store->add_customer(c);
 
-    Options o{"CPU: 2.6 GHz Xeon 6126T", 2423.47};         store->add_option(o);
-    o = Options{"CPU: 2.4 GHz Core i7-8565U", 388.0};      store->add_option(o);
-    o = Options{"CPU: 2.2 GHz AMD Opteron", 37.71};        store->add_option(o);
-    o = Options{"CPU: 300 MHz AM3351BZCEA30R ARM", 11.03}; store->add_option(o);
-    o = Options{"CPU: 240 MHz ColdFire MCF5", 17.33};      store->add_option(o);
+    Options* o = new Options{"CPU: 2.6 GHz Xeon 6126T", 2423.47};         store->add_option(*o);
+    o = new Options{"CPU: 2.4 GHz Core i7-8565U", 388.0};      store->add_option(*o);
+    o = new Options{"CPU: 2.2 GHz AMD Opteron", 37.71};        store->add_option(*o);
+    o = new Options{"CPU: 300 MHz AM3351BZCEA30R ARM", 11.03}; store->add_option(*o);
+    o = new Options{"CPU: 240 MHz ColdFire MCF5", 17.33};      store->add_option(*o);
 
-    o = Options{"2 GB RAM", 17.76};                        store->add_option(o);
-    o = Options{"4 GB RAM", 22.95};                        store->add_option(o);
-    o = Options{"8 GB RAM", 34.99};                        store->add_option(o);
-    o = Options{"16 GB RAM", 92.99};                       store->add_option(o);
-    o = Options{"32 GB RAM", 134.96};                      store->add_option(o);
-    o = Options{"64 GB RAM", 319.99};                      store->add_option(o);
+    o = new Options{"2 GB RAM", 17.76};                        store->add_option(*o);
+    o = new Options{"4 GB RAM", 22.95};                        store->add_option(*o);
+    o = new Options{"8 GB RAM", 34.99};                        store->add_option(*o);
+    o = new Options{"16 GB RAM", 92.99};                       store->add_option(*o);
+    o = new Options{"32 GB RAM", 134.96};                      store->add_option(*o);
+    o = new Options{"64 GB RAM", 319.99};                      store->add_option(*o);
 
-    o = Options{"0.5 TB SSD", 79.99};                      store->add_option(o);
-    o = Options{"1 TB SSD", 109.99};                       store->add_option(o);
-    o = Options{"2 TB SSD", 229.99};                       store->add_option(o);
-    o = Options{"4 TB SSD", 599.99};                       store->add_option(o);
+    o = new Options{"0.5 TB SSD", 79.99};                      store->add_option(*o);
+    o = new Options{"1 TB SSD", 109.99};                       store->add_option(*o);
+    o = new Options{"2 TB SSD", 229.99};                       store->add_option(*o);
+    o = new Options{"4 TB SSD", 599.99};                       store->add_option(*o);
 
-    o = Options{"1 TB PC Disk", 44.83};                    store->add_option(o);
-    o = Options{"2 TB Hybrid Disk", 59.99};                store->add_option(o);
-    o = Options{"4 TB Hybrid Disk", 93.98};                store->add_option(o);
+    o = new Options{"1 TB PC Disk", 44.83};                    store->add_option(*o);
+    o = new Options{"2 TB Hybrid Disk", 59.99};                store->add_option(*o);
+    o = new Options{"4 TB Hybrid Disk", 93.98};                store->add_option(*o);
 
     int desktop = store->new_desktop();
     store->add_option(0, desktop);

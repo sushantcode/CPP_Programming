@@ -24,6 +24,8 @@ class Mainwin : public Gtk::Window{
 		void on_view_order_click();
 		void on_view_customer_click();
 		void on_insert_ram_click();
+		void on_insert_cpu_click();
+		void on_insert_disk_click();
 		void on_insert_other_click();
 		void on_insert_desktop_click();
 		void on_insert_order_click();
