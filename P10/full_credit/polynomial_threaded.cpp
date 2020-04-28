@@ -1,6 +1,8 @@
 #include "polynomial.h"
 #include <cmath>
 
+std::mutex m;
+
 Polynomial::Polynomial() { }
 Polynomial::Polynomial(std::istream& ist) {
     int tsize; ist >> tsize;
@@ -31,17 +33,27 @@ double Polynomial::operator()(double x) {
 //   tid is a thread id - useful for logger.h messages
 void Polynomial::solve(double min, double max, int nthreads, double slices, double precision) {
     _roots = {};
-    solve_recursive(min, max, 1, slices, precision);
+    std::thread t[nthreads];
+    double range = (double)((max-min)/nthreads);
+    for(int i = 0; i < nthreads; ++i){
+    	t[i] = std::thread([=]{this->solve_recursive(min, min + range, i, slices, precision);});
+    	min = min + range;
+    }
+    for(int i = 0; i < nthreads; ++i){
+    	//m.lock();
+        t[i].join();
+        //m.unlock();
+    }
 }
 // (Internal) recursive search for polynomial solutions
 void Polynomial::solve_recursive(double min, double max, int tid, double slices, double precision, int recursions) {
+	m.lock();
     Polynomial& f = *this;
     double delta = (max - min) / slices;
     double x1 = min;
     double y1 = f(min);
     double x2 = x1 + delta;
     double y2;
-
     while(x1 < max) {
         y2 = f(x2);
         if(std::signbit(y1) != std::signbit(y2)) {
